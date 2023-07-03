@@ -1,11 +1,11 @@
+import { Container } from "@chakra-ui/react";
+
+import { Home } from "./pages/Home";
+
 export function App() {
   return (
-    <>
-      <div>
-        <h1>
-          Taskify
-        </h1>
-      </div>
-    </>
+    <Container w='xl'>
+      <Home />
+    </Container>
   )
 }

@@ -1,6 +1,4 @@
-import { extendTheme } from '@chakra-ui/react'
-
-const colors = {
+export const colors = {
   blue: {
     500: '#0860FB',
     100: '#E2EBFA'
@@ -23,10 +21,8 @@ const colors = {
   }
 }
 
-const fonts = {
+export const fonts = {
   body: "Poppins",
   heading: "Alkatra",
   mono: "Roboto",
 }
-
-export const theme = extendTheme({ colors, fonts })
