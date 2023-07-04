@@ -8,6 +8,12 @@ type Props = ButtonProps & {
 
 export function Button({ children, color, ...rest }: Props) {
   return (
-    <ChakraButton colorScheme={color} fontWeight="medium" {...rest}>{children}</ChakraButton>
+    <ChakraButton
+      colorScheme={color}
+      fontWeight="medium"
+      {...rest}
+    >
+      {children}
+    </ChakraButton>
   )
 }
