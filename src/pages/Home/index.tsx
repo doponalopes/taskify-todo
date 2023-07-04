@@ -1,9 +1,9 @@
-import { Header } from "../../components";
+import { Container } from "../../components";
 
 export function Home() {
   return (
-    <>
-      <Header />
-    </>
+    <Container>
+      <h1>Home</h1>
+    </Container>
   )
 }

@@ -1,11 +1,11 @@
-import { Container } from "@chakra-ui/react";
-
 import { Home } from "./pages/Home";
+import { Header } from "./components";
 
 export function App() {
   return (
-    <Container w='xl'>
+    <>
+      <Header />
       <Home />
-    </Container>
+    </>
   )
 }
