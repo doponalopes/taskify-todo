@@ -6,19 +6,16 @@ import {
 } from "@chakra-ui/react";
 import { MdOutlineSearch } from "react-icons/md";
 
-type Props = InputProps & {
-}
-
-export function InputSearch({ ...rest }: Props) {
+export function InputSearch({ ...rest }: InputProps) {
   return (
     <InputGroup size='lg'>
       <ChakraInput
         bg="white"
         border="none"
-        color="gray.600"
         fontSize="md"
-        focusBorderColor="blue.500"
+        color="gray.600"
         placeholder='Pesquisar'
+        focusBorderColor="blue.500"
         {...rest}
       />
 
