@@ -5,13 +5,7 @@ type Props = IconButtonProps & {
 }
 
 const hover = {
-  gray: {
-    background: 'blue.100'
-  },
-
-  white: {
-    background: 'white'
-  },
+  background: 'blue.100'
 }
 
 const background = {
@@ -23,7 +17,7 @@ export function IconButton({ icon, color, ...rest }: Props) {
   return (
     <ChakraIconButton
       bg={background[color]}
-      _hover={hover[color]}
+      _hover={hover}
       icon={icon}
       fontSize={24}
       {...rest}
