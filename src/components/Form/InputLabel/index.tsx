@@ -8,8 +8,11 @@ type Props = InputProps & {
 export function InputLabel({ isRequired, label, ...rest }: Props) {
   return (
     <FormControl isRequired={isRequired}>
-      <FormLabel>{label}</FormLabel>
-      <Input {...rest} />
+      <FormLabel fontWeight="normal">{label}</FormLabel>
+      <Input
+        bg="gray.200"
+        border="none"
+        {...rest} />
     </FormControl>
   )
 }

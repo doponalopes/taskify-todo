@@ -18,8 +18,11 @@ type Props = SelectProps & {
 export function SelectInput({ isRequired = false, label, data, ...rest }: Props) {
   return (
     <FormControl isRequired={isRequired}>
-      <FormLabel htmlFor='owner'>{label}</FormLabel>
-      <ChakraSelect {...rest}>
+      <FormLabel fontWeight="normal" htmlFor='owner'>{label}</FormLabel>
+      <ChakraSelect
+        bg="gray.200"
+        border="none" {...rest}
+      >
         <option value="">Selecione...</option>
         {data?.map(({ value, label }) => (
           <option key={value} value={value}>{label}</option>

@@ -12,11 +12,13 @@ type Props = TextareaProps & {
 export function Textarea({ gridColumn, isRequired, label, ...rest }: Props) {
   return (
     <FormControl isRequired={isRequired} gridColumn={gridColumn}>
-      <FormLabel>{label}</FormLabel>
+      <FormLabel fontWeight="normal">{label}</FormLabel>
+
       <ChakraTextarea
+        bg="gray.200"
+        border="none"
         {...rest}
       />
-
     </FormControl>
   )
 }

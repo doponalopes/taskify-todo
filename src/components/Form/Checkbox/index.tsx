@@ -6,7 +6,11 @@ type Props = CheckboxProps & {
 
 export function Checkbox({ label, ...rest }: Props) {
   return (
-    <ChakraCheckbox colorScheme='gray' {...rest}>
+    <ChakraCheckbox
+      colorScheme='blue'
+      borderColor="blue.200"
+      {...rest}
+    >
       {label}
     </ChakraCheckbox>
   )
