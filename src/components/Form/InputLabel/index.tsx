@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Input, InputProps } from "@chakra-ui/react";
 
 type Props = InputProps & {
-  isRequired: boolean;
+  isRequired?: boolean;
   label: string;
 }
 

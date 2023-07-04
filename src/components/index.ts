@@ -9,6 +9,7 @@ export { ButtonGroup } from './Form/ButtonGroup'
 export { InputLabel } from './Form/InputLabel'
 export { Textarea } from './Form/Textarea'
 export { Checkbox } from './Form/Checkbox'
+export { SelectInput } from './Form/Select'
 
 export { OnlineOfflineUsers } from './OnlineOfflineUsers'
 
