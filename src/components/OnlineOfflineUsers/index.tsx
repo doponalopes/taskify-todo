@@ -39,7 +39,7 @@ export function OnlineOfflineUsers() {
   const remainingUsers = userOnline.slice(maxVisibleUsers).map(({ name }) => name);
 
   return (
-    <HStack>
+    <HStack mr={1}>
       <Avatar
         name="O f"
         bg="gray.400"
@@ -49,7 +49,7 @@ export function OnlineOfflineUsers() {
       />
       <Divider
         ml={3}
-        mr={2}
+        mr={3}
         bg="white"
         height="3rem"
         width="0.125rem"

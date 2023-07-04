@@ -14,6 +14,10 @@ export function InputSearch({ ...rest }: Props) {
     <InputGroup size='lg'>
       <ChakraInput
         bg="white"
+        border="none"
+        color="gray.600"
+        fontSize="md"
+        focusBorderColor="blue.500"
         placeholder='Pesquisar'
         {...rest}
       />
