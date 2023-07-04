@@ -6,6 +6,9 @@ export { IconButton } from './Form/IconButton'
 export { InputSearch } from './Form/InputSearch'
 export { Button } from './Form/Button'
 export { ButtonGroup } from './Form/ButtonGroup'
+export { InputLabel } from './Form/InputLabel'
+export { Textarea } from './Form/Textarea'
+export { Checkbox } from './Form/Checkbox'
 
 export { OnlineOfflineUsers } from './OnlineOfflineUsers'
 

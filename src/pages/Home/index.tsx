@@ -1,4 +1,4 @@
-import { Box, HStack } from "@chakra-ui/react";
+import { Box, HStack, useDisclosure } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
 
@@ -12,6 +12,7 @@ import {
   NoRegistry
 } from "../../components";
 import { useState } from "react";
+import { RegisterAndUpdate } from "./RegisterAndUpdate";
 
 const buttonGroup = [
   'Todas',
@@ -22,14 +23,20 @@ const buttonGroup = [
 
 export function Home() {
   const [activeButtonGroup, setActiveButtonGroup] = useState('Todas')
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   function changeActiveButtonGroup(value: string) {
     setActiveButtonGroup(value)
   }
 
+  function applyFilerHandler() { }
+
   return (
     <Container mt={8}>
+      {isOpen && (
+        <RegisterAndUpdate isOpen={isOpen} onClose={onClose} onClick={applyFilerHandler} />
+      )}
+
       <HStack display="flex" alignItems="center" justifyContent="space-between">
         <Box flex={1}>
           <InputSearch />
@@ -40,7 +47,13 @@ export function Home() {
 
           <IconButton color="white" icon={<MdFilterList />} aria-label="Filtrar" />
 
-          <Button color='blue' fontWeight="medium">Nova tarefa</Button>
+          <Button
+            color='blue'
+            fontWeight="medium"
+            onClick={onOpen}
+          >
+            Nova tarefa
+          </Button>
         </HStack>
       </HStack>
 

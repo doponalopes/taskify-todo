@@ -6,8 +6,8 @@ type Props = ButtonProps & {
   children: ReactNode;
 }
 
-export function Button({ children, color }: Props) {
+export function Button({ children, color, ...rest }: Props) {
   return (
-    <ChakraButton colorScheme={color} fontWeight="medium">{children}</ChakraButton>
+    <ChakraButton colorScheme={color} fontWeight="medium" {...rest}>{children}</ChakraButton>
   )
 }
