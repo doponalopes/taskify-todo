@@ -14,3 +14,7 @@ export { SelectInput } from './Form/Select'
 export { OnlineOfflineUsers } from './OnlineOfflineUsers'
 
 export { NoRegistry } from './NoRegistry'
+
+export { Task } from './Task'
+
+export { Badge } from './Badge'

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, HStack, useDisclosure } from "@chakra-ui/react";
+import { Box, Grid, HStack, useDisclosure } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
 
@@ -10,7 +10,8 @@ import {
   Button,
   ButtonGroup,
   OnlineOfflineUsers,
-  NoRegistry
+  NoRegistry,
+  Task
 } from "../../components";
 import { RegisterAndUpdate } from "./RegisterAndUpdate";
 import { Filter } from "./Filter";
@@ -20,6 +21,45 @@ const buttonGroup = [
   'Em andamento',
   'Concluídas',
   'Bloqueadas'
+]
+
+const tasks = [
+  {
+    id: '1',
+    title: 'Criar protótipo da tela de cadastro de usuários',
+    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
+    nameUser: 'Christopher Dopona Lopes',
+    blocked: false,
+    completed: false
+  },
+
+  {
+    id: '2',
+    title: 'Criar protótipo da tela de cadastro de usuários',
+    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
+    nameUser: 'Claudia Aguiar Porto',
+    blocked: true,
+    completed: true
+  },
+
+  {
+    id: '3',
+    title: 'Criar protótipo da tela de cadastro de usuários',
+    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
+    nameUser: 'Jessica Porto',
+    blocked: true,
+    completed: false
+  },
+
+
+  {
+    id: '3',
+    title: 'Criar protótipo da tela de cadastro de usuários',
+    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
+    nameUser: 'Pedro da Silva',
+    blocked: false,
+    completed: false
+  }
 ]
 
 export function Home() {
@@ -100,7 +140,29 @@ export function Home() {
         </HStack>
       </HStack>
 
-      <NoRegistry />
+      <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
+        {tasks.map(({
+          id,
+          title,
+          text,
+          nameUser,
+          blocked,
+          completed
+        }) => (
+          <Task
+            key={id}
+            id={id}
+            title={title}
+            text={text}
+            nameUser={nameUser}
+            blocked={blocked}
+            completed={completed}
+          />
+
+        ))}
+      </Grid>
+
+      {/* <NoRegistry /> */}
     </Container>
   )
 }
