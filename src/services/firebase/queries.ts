@@ -1,7 +1,9 @@
 import {
   collection,
   getDocs,
-  getFirestore
+  getFirestore,
+  addDoc,
+  serverTimestamp
 } from "firebase/firestore";
 
 import { app } from "./config";
@@ -29,5 +31,20 @@ export async function fetchAllTask() {
   } catch (error) {
     console.error("Erro ao obter dados da coleção:", error);
     throw error;
+  }
+}
+
+export async function createTask(data) {
+  const db = getFirestore(app);
+  const tasksCol = collection(db, "tasks");
+
+  try {
+    await addDoc(tasksCol, {
+      ...data,
+      createdAt: serverTimestamp(),
+      completed: false,
+    });
+  } catch (error) {
+    console.error('Erro ao registrar documento:', error);
   }
 }

@@ -1,5 +1,7 @@
 export const types = {
   FETCH_ALL_TASKS: 'TASK/FETCH_ALL_TASKS',
+  REGISTER_NEW_TASK: 'TASK/REGISTER_NEW_TASK',
+  SUCCESS_REGISTER_NEW_TASK: 'TASK/SUCCESS_REGISTER_NEW_TASK'
 }
 
 export type TaskProps = {
@@ -10,13 +12,13 @@ export type TaskProps = {
   ownerUid: string;
   createdAt: number;
   deliveryDate: number;
-  nameUser: string;
   blocked: boolean;
   completed: boolean;
 }
 
 export const INITIAL_STATE = {
-  tasks: [] as TaskProps[]
+  tasks: [] as TaskProps[],
+  isLoading: false,
 }
 
 export function tasksReducer(state = INITIAL_STATE, action) {
@@ -25,6 +27,18 @@ export function tasksReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         tasks: action.payload
+      }
+
+    case types.REGISTER_NEW_TASK:
+      return {
+        ...state,
+        isLoading: true
+      }
+
+    case types.SUCCESS_REGISTER_NEW_TASK:
+      return {
+        ...state,
+        isLoading: false
       }
 
     default:

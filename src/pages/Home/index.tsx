@@ -26,17 +26,6 @@ const buttonGroup = [
   'Bloqueadas'
 ]
 
-const tasks = [
-  {
-    id: '1',
-    title: 'Criar protótipo da tela de cadastro de usuários',
-    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
-    nameUser: 'Christopher Dopona Lopes',
-    blocked: false,
-    completed: false
-  }
-]
-
 export function Home() {
   const [activeButtonGroup, setActiveButtonGroup] = useState('Todas')
   const {
@@ -62,7 +51,6 @@ export function Home() {
     <Container mt={8}>
       {isOpenRegisterUpdate && (
         <RegisterAndUpdate
-          onClick={applyFilerHandler}
           isOpen={isOpenRegisterUpdate}
           onClose={onCloseRegisterUpdate}
         />

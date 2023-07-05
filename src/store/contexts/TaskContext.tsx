@@ -2,13 +2,12 @@ import {
   ReactNode,
   createContext,
   useEffect,
-  useReducer,
-  useState
+  useReducer
 } from "react";
 
 import { INITIAL_STATE, tasksReducer, types } from "../reducers/TaskReducer";
 
-import { fetchAllTask } from "../../services/firebase/queries";
+import { createTask, fetchAllTask } from "../../services/firebase/queries";
 
 type Props = {
   children: ReactNode
@@ -21,22 +20,31 @@ export function TaskContextProvider({ children }: Props) {
 
   useEffect(() => {
     async function getAllTasks() {
-      try {
-        const response = await fetchAllTask();
+      const response = await fetchAllTask();
 
-        dispatch({ type: types.FETCH_ALL_TASKS, payload: response })
-      } catch (error) {
-      } finally {
-
-      }
+      dispatch({ type: types.FETCH_ALL_TASKS, payload: response })
     }
 
     getAllTasks();
   }, []);
 
+  async function registerNewTask(data) {
+    dispatch({ type: types.REGISTER_NEW_TASK })
+
+    try {
+      await createTask(data)
+    } catch (error) {
+
+    } finally {
+      dispatch({ type: types.SUCCESS_REGISTER_NEW_TASK })
+    }
+  }
+
   return (
     <TaskContext.Provider value={{
-      allTasks: tasksState.tasks
+      allTasks: tasksState.tasks,
+      isLoading: tasksState.isLoading,
+      registerNewTask
     }}>
       {children}
     </TaskContext.Provider>
