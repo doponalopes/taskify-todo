@@ -20,9 +20,11 @@ export function TaskContextProvider({ children }: Props) {
 
   useEffect(() => {
     async function getAllTasks() {
+      dispatch({ type: types.FETCH_ALL_TASKS })
+
       const response = await fetchAllTask();
 
-      dispatch({ type: types.FETCH_ALL_TASKS, payload: response })
+      dispatch({ type: types.SUCCESS_FETCH_ALL_TASK, payload: response })
     }
 
     getAllTasks();
@@ -43,7 +45,7 @@ export function TaskContextProvider({ children }: Props) {
   return (
     <TaskContext.Provider value={{
       allTasks: tasksState.tasks,
-      isLoading: tasksState.isLoading,
+      isLoadingFetch: tasksState.isLoadingFetch,
       registerNewTask
     }}>
       {children}

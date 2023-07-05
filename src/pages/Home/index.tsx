@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Box, Grid, HStack, useDisclosure } from "@chakra-ui/react";
+import { Box, Grid, HStack, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
 
@@ -39,7 +39,9 @@ export function Home() {
     onClose: onCloseFilter
   } = useDisclosure()
 
-  const { allTasks } = useContext(TaskContext)
+  const skeletons = new Array(6).fill(null);
+
+  const { allTasks, isLoadingFetch } = useContext(TaskContext)
 
   function changeActiveButtonGroup(value: string) {
     setActiveButtonGroup(value)
@@ -105,7 +107,19 @@ export function Home() {
         </HStack>
       </HStack>
 
-      {allTasks.length > 0 ? (
+      {isLoadingFetch ? (
+        <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
+          {skeletons.map((_, i) => (
+            <Skeleton
+              key={i}
+              height={180}
+              width="auto"
+              startColor="gray.100"
+              endColor="gray.300"
+            />
+          ))}
+        </Grid>
+      ) : allTasks.length > 0 ? (
         <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
           {allTasks.map(({
             id,
