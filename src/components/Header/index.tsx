@@ -1,9 +1,18 @@
-import { Avatar, Box, HStack, Heading } from "@chakra-ui/react";
+import { useContext } from 'react';
+import { Avatar, Box, HStack, Heading } from '@chakra-ui/react';
 import { MdOutlineWbSunny, MdOutlineNotifications } from 'react-icons/md'
 
-import { Container, IconButton } from "..";
+import { AuthContext } from '../../store/contexts/AuthContext';
+
+import { Button, Container, IconButton } from "..";
 
 export function Header() {
+  const { login, logout, userInformation, isLoading } = useContext(AuthContext)
+
+  function googleSignInHandler() {
+    login()
+  }
+
   return (
     <Box bg="white" p={4}>
       <Container display="flex" justifyContent="space-between" alignItems="center">
@@ -15,7 +24,24 @@ export function Header() {
             <IconButton color="gray" icon={<MdOutlineNotifications />} aria-label="Notificação" />
           </HStack>
 
-          <Avatar bg="blue.500" color="white" name='Christopher Dopona' />
+          {userInformation.isLoggedIn ? (
+            <>
+              <Avatar
+                bg="blue.500"
+                color="white"
+                name={userInformation.username}
+              />
+              <Button color="gray" onClick={logout}>Sair</Button>
+            </>
+          ) : (
+            <Button
+              color="gray"
+              onClick={googleSignInHandler}
+              isLoading={isLoading}
+            >
+              Entrar
+            </Button>
+          )}
         </HStack>
       </Container>
     </Box>
