@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Avatar, Box, HStack, Heading } from '@chakra-ui/react';
 import { MdOutlineWbSunny, MdOutlineNotifications } from 'react-icons/md'
 
-import { AuthContext } from '../../store/contexts/AuthContext';
+import { AuthContext } from '@store/contexts/AuthContext';
 
 import { Button, Container, IconButton } from "..";
 

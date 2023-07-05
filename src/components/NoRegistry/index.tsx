@@ -1,6 +1,6 @@
 import { Text, VStack } from "@chakra-ui/react";
 
-import Logo from "../../assets/task-file.svg";
+import Logo from "@assets/task-file.svg";
 
 export function NoRegistry() {
   return (

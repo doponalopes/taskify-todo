@@ -12,9 +12,9 @@ import {
   OnlineOfflineUsers,
   NoRegistry,
   Task
-} from "../../components";
+} from "@components";
 
-import { TaskContext } from "../../store/contexts/TaskContext";
+import { TaskContext } from "@store/contexts/TaskContext";
 
 import { RegisterAndUpdate } from "./RegisterAndUpdate";
 import { Filter } from "./Filter";

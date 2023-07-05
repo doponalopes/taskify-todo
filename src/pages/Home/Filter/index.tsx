@@ -9,7 +9,7 @@ import {
   Grid
 } from "@chakra-ui/react";
 
-import { Button, InputLabel, SelectInput } from "../../../components";
+import { Button, InputLabel, SelectInput } from "@components";
 
 type Props = {
   isOpen: boolean;

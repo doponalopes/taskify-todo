@@ -12,9 +12,9 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 
-import { INITIAL_STATE, types, authReducer } from "../reducers/AuthReducer";
+import { INITIAL_STATE, types, authReducer } from "@store/reducers/AuthReducer";
 
-import { auth } from '../../services/firebase/config';
+import { auth } from '@services/firebase/config';
 
 type Props = {
   children: ReactNode

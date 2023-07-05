@@ -1,7 +1,7 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import { MdOutlineMoreVert, MdLockOutline, MdOutlineLockOpen } from "react-icons/md"
 
-import { TaskProps } from "../../store/reducers/TaskReducer";
+import { TaskProps } from "@store/reducers/TaskReducer";
 
 import { IconButton, Badge } from "..";
 

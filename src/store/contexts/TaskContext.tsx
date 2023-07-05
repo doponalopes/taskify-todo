@@ -5,9 +5,9 @@ import {
   useReducer
 } from "react";
 
-import { INITIAL_STATE, tasksReducer, types } from "../reducers/TaskReducer";
+import { INITIAL_STATE, tasksReducer, types } from "@store/reducers/TaskReducer";
 
-import { createTask, fetchAllTask } from "../../services/firebase/queries";
+import { createTask, fetchAllTask } from "@services/firebase/queries";
 
 type Props = {
   children: ReactNode

@@ -15,12 +15,12 @@ import {
   Checkbox,
   InputLabel,
   Textarea
-} from '../../../components'
+} from '@components'
 
-import { formatDate } from "../../../utils/dataUtils";
+import { formatDate } from "@utils/dataUtils";
 
-import { TaskContext } from "../../../store/contexts/TaskContext";
-import { AuthContext } from "../../../store/contexts/AuthContext";
+import { TaskContext } from "@store/contexts/TaskContext";
+import { AuthContext } from "@store/contexts/AuthContext";
 
 type RegisterAndUpdateProps = {
   isOpen: boolean;
