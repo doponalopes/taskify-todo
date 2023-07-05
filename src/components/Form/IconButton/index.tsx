@@ -1,7 +1,7 @@
 import { IconButton as ChakraIconButton, IconButtonProps } from '@chakra-ui/react'
 
 type Props = IconButtonProps & {
-  color: 'gray' | 'white'
+  color: 'gray' | 'white' | 'transparent'
 }
 
 const hover = {
@@ -10,7 +10,8 @@ const hover = {
 
 const background = {
   gray: 'gray.100',
-  white: 'white'
+  white: 'white',
+  transparent: 'transparent'
 }
 
 export function IconButton({ icon, color, ...rest }: Props) {
