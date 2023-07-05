@@ -1,18 +1,12 @@
 import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
 import { MdOutlineMoreVert, MdLockOutline, MdOutlineLockOpen } from "react-icons/md"
 
+import { TaskProps } from "../../store/reducers/TaskReducer";
+
 import { IconButton, Badge } from "..";
 
-type Props = {
-  id: string;
-  title: string;
-  text: string;
-  nameUser: string;
-  blocked: boolean;
-  completed: boolean;
-}
 
-export function Task({ id, title, text, nameUser, blocked, completed }: Props) {
+export function Task({ id, title, text, onwerName, ownerUid, blocked, completed }: TaskProps) {
   const variantBadge = completed ? 'green' : 'orange'
   const statusText = completed ? 'Concluída' : 'Em andamento'
   const isBlocked = blocked ? <MdLockOutline size={24} /> : <MdOutlineLockOpen size={24} />
@@ -53,8 +47,8 @@ export function Task({ id, title, text, nameUser, blocked, completed }: Props) {
           size="sm"
           bg="blue.500"
           color="white"
-          name={nameUser}
-          title={nameUser}
+          name={onwerName}
+          title={onwerName}
         />
 
         <HStack alignItems="center">

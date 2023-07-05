@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Box, Grid, HStack, useDisclosure } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
@@ -13,6 +13,9 @@ import {
   NoRegistry,
   Task
 } from "../../components";
+
+import { TaskContext } from "../../store/contexts/TaskContext";
+
 import { RegisterAndUpdate } from "./RegisterAndUpdate";
 import { Filter } from "./Filter";
 
@@ -31,34 +34,6 @@ const tasks = [
     nameUser: 'Christopher Dopona Lopes',
     blocked: false,
     completed: false
-  },
-
-  {
-    id: '2',
-    title: 'Criar protótipo da tela de cadastro de usuários',
-    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
-    nameUser: 'Claudia Aguiar Porto',
-    blocked: true,
-    completed: true
-  },
-
-  {
-    id: '3',
-    title: 'Criar protótipo da tela de cadastro de usuários',
-    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
-    nameUser: 'Jessica Porto',
-    blocked: true,
-    completed: false
-  },
-
-
-  {
-    id: '4',
-    title: 'Criar protótipo da tela de cadastro de usuários',
-    text: 'Realize testes com usuários para obter feedback sobre o protótipo. Observe como eles interagem com a tela...',
-    nameUser: 'Pedro da Silva',
-    blocked: false,
-    completed: false
   }
 ]
 
@@ -74,6 +49,8 @@ export function Home() {
     onOpen: onOpenFilter,
     onClose: onCloseFilter
   } = useDisclosure()
+
+  const { allTasks } = useContext(TaskContext)
 
   function changeActiveButtonGroup(value: string) {
     setActiveButtonGroup(value)
@@ -140,29 +117,30 @@ export function Home() {
         </HStack>
       </HStack>
 
-      <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
-        {tasks.map(({
-          id,
-          title,
-          text,
-          nameUser,
-          blocked,
-          completed
-        }) => (
-          <Task
-            key={id}
-            id={id}
-            title={title}
-            text={text}
-            nameUser={nameUser}
-            blocked={blocked}
-            completed={completed}
-          />
-
-        ))}
-      </Grid>
-
-      {/* <NoRegistry /> */}
+      {allTasks.length > 0 ? (
+        <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
+          {allTasks.map(({
+            id,
+            title,
+            text,
+            onwerName,
+            ownerUid,
+            blocked,
+            completed
+          }) => (
+            <Task
+              key={id}
+              id={id}
+              text={text}
+              title={title}
+              blocked={blocked}
+              onwerName={onwerName}
+              ownerUid={ownerUid}
+              completed={completed}
+            />
+          ))}
+        </Grid>
+      ) : <NoRegistry />}
     </Container>
   )
 }

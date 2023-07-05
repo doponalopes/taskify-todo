@@ -14,7 +14,7 @@ import {
 
 import { INITIAL_STATE, types, authReducer } from "../reducers/AuthReducer";
 
-import { auth } from '../../services/firebase';
+import { auth } from '../../services/firebase/config';
 
 type Props = {
   children: ReactNode
