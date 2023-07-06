@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { Timestamp } from 'firebase/firestore';
 
 export const formatDate = (event: ChangeEvent<HTMLInputElement>): string => {
   const input = event.target as HTMLInputElement;
@@ -11,3 +12,10 @@ export const formatDate = (event: ChangeEvent<HTMLInputElement>): string => {
 
   return formattedValue
 };
+
+export function convertDateToTimestamp(dataString: string): Timestamp {
+  const [day, month, year] = dataString.split('/');
+  const data = new Date(Number(day), Number(month) - 1, Number(year));
+
+  return Timestamp.fromDate(data);
+}

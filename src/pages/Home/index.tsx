@@ -136,9 +136,10 @@ export function Home() {
               text={text}
               title={title}
               blocked={blocked}
-              onwerName={onwerName}
               ownerUid={ownerUid}
+              onwerName={onwerName}
               completed={completed}
+              onOpenRegisterUpdate={onOpenRegisterUpdate}
             />
           ))}
         </Grid>

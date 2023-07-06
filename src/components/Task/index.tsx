@@ -1,15 +1,33 @@
-import { Avatar, Box, HStack, Text } from "@chakra-ui/react";
+import { Avatar, Box, HStack, Menu, MenuButton, MenuItem, MenuList, Portal, Text } from "@chakra-ui/react";
 import { MdOutlineMoreVert, MdLockOutline, MdOutlineLockOpen } from "react-icons/md"
 
 import { TaskProps } from "@store/reducers/TaskReducer";
 
 import { IconButton, Badge } from "..";
+import { useContext } from "react";
+import { TaskContext } from "@store/contexts/TaskContext";
 
+export function Task({
+  id,
+  title,
+  text,
+  onwerName,
+  ownerUid,
+  blocked,
+  completed,
+  onOpenRegisterUpdate
+}: TaskProps) {
+  const { selectTaskToEdit } = useContext(TaskContext)
 
-export function Task({ id, title, text, onwerName, ownerUid, blocked, completed }: TaskProps) {
   const variantBadge = completed ? 'green' : 'orange'
   const statusText = completed ? 'Concluída' : 'Em andamento'
   const isBlocked = blocked ? <MdLockOutline size={24} /> : <MdOutlineLockOpen size={24} />
+
+  function editTaskHandler() {
+    onOpenRegisterUpdate()
+
+    selectTaskToEdit(id)
+  }
 
   return (
     <Box bg="white" p={4} borderRadius={5}>
@@ -18,12 +36,21 @@ export function Task({ id, title, text, onwerName, ownerUid, blocked, completed 
           {title}
         </Text>
 
-        <IconButton
-          color="transparent"
-          icon={<MdOutlineMoreVert />}
-          aria-label="Botão de ações da tarefa."
-          size="sm"
-        />
+        <Menu>
+          <MenuButton><IconButton
+            color="transparent"
+            icon={<MdOutlineMoreVert />}
+            aria-label="Botão de ações da tarefa."
+            size="sm"
+          /></MenuButton>
+          <Portal>
+            <MenuList>
+              <MenuItem onClick={editTaskHandler}>Editar</MenuItem>
+              <MenuItem>Excluir</MenuItem>
+              <MenuItem>Concluir</MenuItem>
+            </MenuList>
+          </Portal>
+        </Menu>
 
       </HStack>
       <Text

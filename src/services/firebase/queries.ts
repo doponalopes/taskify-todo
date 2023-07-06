@@ -3,7 +3,9 @@ import {
   getDocs,
   getFirestore,
   addDoc,
-  serverTimestamp
+  serverTimestamp,
+  updateDoc,
+  doc
 } from "firebase/firestore";
 
 import { app } from "./config";
@@ -47,4 +49,19 @@ export async function createTask(data) {
   } catch (error) {
     console.error('Erro ao registrar documento:', error);
   }
+}
+
+export async function updateTask(id, data) {
+  const db = getFirestore(app);
+
+  try {
+    const docRef = doc(db, 'tasks', id);
+
+    await updateDoc(docRef, {
+      ...data
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar documento:', error);
+  }
+
 }
