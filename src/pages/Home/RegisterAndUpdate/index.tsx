@@ -34,7 +34,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
   const [text, setText] = useState('')
   const [blocked, setBlocked] = useState(false)
 
-  const { registerNewTask, isLoading } = useContext(TaskContext)
+  const { registerNewTask, isLoadingRegisterUpdate } = useContext(TaskContext)
   const { userInformation } = useContext(AuthContext)
 
   async function registerNewTaskHandler() {
@@ -97,7 +97,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
         <ModalFooter>
           <Button color='gray' mr={3} onClick={onClose}>Cancelar</Button>
 
-          <Button color='blue' isLoading={isLoading} onClick={registerNewTaskHandler}>
+          <Button color='blue' isLoading={isLoadingRegisterUpdate} onClick={registerNewTaskHandler}>
             Cadastrar
           </Button>
         </ModalFooter>

@@ -21,6 +21,7 @@ export type TaskProps = {
 export const INITIAL_STATE = {
   tasks: [] as TaskProps[],
   isLoadingFetch: true,
+  isLoadingRegisterUpdate: false
 }
 
 export function tasksReducer(state = INITIAL_STATE, action) {
@@ -41,13 +42,13 @@ export function tasksReducer(state = INITIAL_STATE, action) {
     case types.REGISTER_NEW_TASK:
       return {
         ...state,
-        isLoading: true
+        isLoadingRegisterUpdate: true
       }
 
     case types.SUCCESS_REGISTER_NEW_TASK:
       return {
         ...state,
-        isLoading: false
+        isLoadingRegisterUpdate: false
       }
 
     default:

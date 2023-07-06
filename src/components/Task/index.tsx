@@ -34,6 +34,7 @@ export function Task({ id, title, text, onwerName, ownerUid, blocked, completed 
         color="gray.400"
         fontFamily="mono"
         fontWeight="regular"
+        height="5.5ch"
       >
         {text}
       </Text>

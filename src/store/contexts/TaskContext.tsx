@@ -46,6 +46,7 @@ export function TaskContextProvider({ children }: Props) {
     <TaskContext.Provider value={{
       allTasks: tasksState.tasks,
       isLoadingFetch: tasksState.isLoadingFetch,
+      isLoadingRegisterUpdate: tasksState.isLoadingRegisterUpdate,
       registerNewTask
     }}>
       {children}
