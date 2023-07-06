@@ -1,16 +1,27 @@
-import { Avatar, Box, HStack, Menu, MenuButton, MenuItem, MenuList, Portal, Text } from "@chakra-ui/react";
-import { MdOutlineMoreVert, MdLockOutline, MdOutlineLockOpen } from "react-icons/md"
-
-import { TaskProps } from "@store/reducers/TaskReducer";
-
-import { IconButton, Badge } from "..";
 import { useContext } from "react";
+import {
+  Avatar,
+  Box,
+  HStack,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Portal,
+  Text
+} from "@chakra-ui/react";
+import {
+  MdOutlineMoreVert,
+  MdLockOutline,
+  MdOutlineLockOpen
+} from "react-icons/md"
+
+import { TaskTypes } from "types/taskTypes";
+
 import { TaskContext } from "@store/contexts/TaskContext";
 import { AuthContext } from "@store/contexts/AuthContext";
 
-type Props = TaskProps & {
-  onOpenRegisterUpdate: () => void;
-}
+import { IconButton, Badge } from "..";
 
 export function Task({
   id,
@@ -21,7 +32,7 @@ export function Task({
   blocked,
   completed,
   onOpenRegisterUpdate
-}: Props) {
+}: TaskTypes) {
   const { selectTaskToEdit, changeTaskStatusHandler, removeTaskHandler } = useContext(TaskContext)
   const { userInformation } = useContext(AuthContext)
 

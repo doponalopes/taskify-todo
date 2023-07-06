@@ -1,15 +1,8 @@
-import {
-  Textarea as ChakraTextarea,
-  FormControl,
-  FormLabel,
-  TextareaProps
-} from '@chakra-ui/react'
+import { Textarea as ChakraTextarea, FormControl, FormLabel } from '@chakra-ui/react'
 
-type Props = TextareaProps & {
-  label: string;
-}
+import { TextareaTypes } from 'types/textAreaTypes'
 
-export function Textarea({ gridColumn, isRequired, label, ...rest }: Props) {
+export function Textarea({ gridColumn, isRequired, label, ...rest }: TextareaTypes) {
   return (
     <FormControl isRequired={isRequired} gridColumn={gridColumn}>
       <FormLabel fontWeight="normal">{label}</FormLabel>

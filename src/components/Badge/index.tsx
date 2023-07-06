@@ -1,30 +1,18 @@
-import { ReactNode } from 'react';
-import { Badge as ChakraBadge, BadgeProps } from '@chakra-ui/react'
+import { Badge as ChakraBadge } from '@chakra-ui/react'
 
-type Props = BadgeProps & {
-  color: 'green' | 'orange';
-  children: ReactNode;
-}
+import { badgeTypes } from 'types/badgeTypes';
 
-const background = {
-  green: 'green.100',
-  orange: 'orange.100'
-}
-
-const textColor = {
-  green: 'green.500',
-  orange: 'orange.600'
-}
-
-export function Badge({ color, children }: Props) {
+export function Badge({ color, children }: badgeTypes) {
+  const background = color === 'green' ? 'green.100' : 'orange.100'
+  const textColor = color === 'green' ? 'green.500' : 'orange.600'
 
   return (
     <ChakraBadge
       fontSize="sm"
       borderRadius={5}
       fontWeight="medium"
-      bg={background[color]}
-      color={textColor[color]}
+      bg={background}
+      color={textColor}
       textTransform="capitalize"
     >
       {children}

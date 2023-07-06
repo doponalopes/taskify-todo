@@ -20,8 +20,8 @@ export function Header() {
 
         <HStack gap={8}>
           <HStack gap={6}>
-            <IconButton color="gray" icon={<MdOutlineWbSunny />} aria-label="Modo escuro/claro" />
-            <IconButton color="gray" icon={<MdOutlineNotifications />} aria-label="Notificação" />
+            <IconButton color="gray.100" icon={<MdOutlineWbSunny />} aria-label="Modo escuro/claro" />
+            <IconButton color="gray.100" icon={<MdOutlineNotifications />} aria-label="Notificação" />
           </HStack>
 
           {userInformation.isLoggedIn ? (

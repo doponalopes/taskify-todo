@@ -1,12 +1,9 @@
-import { ReactNode } from "react";
-import { Button as ChakraButton, ButtonProps } from "@chakra-ui/react";
 
-type Props = ButtonProps & {
-  color: 'blue' | 'gray';
-  children: ReactNode;
-}
+import { Button as ChakraButton } from "@chakra-ui/react";
 
-export function Button({ children, color, ...rest }: Props) {
+import { ButtonTypes } from "types/buttonTypes";
+
+export function Button({ children, color, ...rest }: ButtonTypes) {
   return (
     <ChakraButton
       colorScheme={color}

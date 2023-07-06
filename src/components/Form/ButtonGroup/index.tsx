@@ -1,12 +1,8 @@
-import { ReactNode } from 'react';
-import { Button, ButtonProps } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 
-type Props = ButtonProps & {
-  active: boolean;
-  children: ReactNode;
-}
+import { ButtonGroupTypes } from 'types/buttonGroupTypes'
 
-export function ButtonGroup({ active, children, ...rest }: Props) {
+export function ButtonGroup({ active, children, ...rest }: ButtonGroupTypes) {
   const background = active ? 'blue.100' : 'white'
   const color = active ? 'blue.500' : 'gray.600'
 

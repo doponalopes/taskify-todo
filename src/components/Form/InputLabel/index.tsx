@@ -1,11 +1,8 @@
-import { FormControl, FormLabel, Input, InputProps } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
-type Props = InputProps & {
-  isRequired?: boolean;
-  label: string;
-}
+import { InputLabelTypes } from "types/inputLabel";
 
-export function InputLabel({ isRequired, label, ...rest }: Props) {
+export function InputLabel({ isRequired, label, ...rest }: InputLabelTypes) {
   return (
     <FormControl isRequired={isRequired}>
       <FormLabel fontWeight="normal">{label}</FormLabel>

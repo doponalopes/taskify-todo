@@ -1,10 +1,8 @@
-import { Checkbox as ChakraCheckbox, CheckboxProps } from "@chakra-ui/react"
+import { Checkbox as ChakraCheckbox } from "@chakra-ui/react"
 
-type Props = CheckboxProps & {
-  label: string;
-}
+import { CheckboxTypes } from "types/checkboxTypes"
 
-export function Checkbox({ label, ...rest }: Props) {
+export function Checkbox({ label, ...rest }: CheckboxTypes) {
   return (
     <ChakraCheckbox
       colorScheme='blue'

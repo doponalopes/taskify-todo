@@ -1,3 +1,5 @@
+import { TaskProps } from "types/taskTypes"
+
 export const types = {
   FETCH_ALL_TASKS: 'TASK/FETCH_ALL_TASKS',
   SUCCESS_FETCH_ALL_TASK: 'TASK/SUCCESS_FETCH_ALL_TASK',
@@ -10,18 +12,6 @@ export const types = {
 
   SELECT_TASK_TO_EDIT: 'TASK/SELECT_TASK_TO_EDIT',
   REMOVE_SELECTED_TASK: 'TASK/REMOVE_SELECTED_TASK',
-}
-
-export type TaskProps = {
-  id: string;
-  title: string;
-  text: string;
-  onwerName: string;
-  ownerUid: string;
-  createdAt: number;
-  deliveryDate: number;
-  blocked: boolean;
-  completed: boolean;
 }
 
 export const INITIAL_STATE = {

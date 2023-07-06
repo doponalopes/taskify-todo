@@ -1,21 +1,8 @@
-import {
-  Select as ChakraSelect,
-  FormControl,
-  FormLabel,
-  SelectProps
-} from '@chakra-ui/react'
+import { Select as ChakraSelect, FormControl, FormLabel } from '@chakra-ui/react'
 
-type DataProps = {
-  value: string;
-  label: string;
-}
+import { SelectTypes } from 'types/selectInputTypes'
 
-type Props = SelectProps & {
-  data: DataProps[];
-  label: string;
-}
-
-export function SelectInput({ isRequired = false, label, data, ...rest }: Props) {
+export function SelectInput({ isRequired = false, label, data, ...rest }: SelectTypes) {
   return (
     <FormControl isRequired={isRequired}>
       <FormLabel fontWeight="normal" htmlFor='owner'>{label}</FormLabel>

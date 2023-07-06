@@ -1,11 +1,8 @@
-import { ReactNode } from "react";
-import { Container as ChakraContainer, ContainerProps } from "@chakra-ui/react";
+import { Container as ChakraContainer } from "@chakra-ui/react";
 
-type Props = ContainerProps & {
-  children: ReactNode
-}
+import { ContainerTypes } from "types/containerTypes";
 
-export function Container({ children, ...rest }: Props) {
+export function Container({ children, ...rest }: ContainerTypes) {
   return (
     <ChakraContainer maxW='container.xl' {...rest}>
       {children}
