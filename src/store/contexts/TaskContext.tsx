@@ -29,9 +29,9 @@ export function TaskContextProvider({ children }: Props) {
     async function getAllTasks() {
       dispatch({ type: types.FETCH_ALL_TASKS })
 
-      const response = await fetchAllTask();
-
-      dispatch({ type: types.SUCCESS_FETCH_ALL_TASK, payload: response })
+      await fetchAllTask((response) => {
+        dispatch({ type: types.SUCCESS_FETCH_ALL_TASK, payload: response })
+      });
     }
 
     getAllTasks();

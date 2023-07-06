@@ -47,8 +47,6 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
   const taskWasSelected = !!selectTask?.id
   const modalTile = taskWasSelected ? 'Editar' : 'Cadastrar'
 
-  console.log('taskWasSelected:', { taskWasSelected, selectTask })
-
   useEffect(() => {
     if (taskWasSelected) {
       setTitle(selectTask.title)
@@ -58,7 +56,6 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
     }
 
     return () => {
-      console.log('oi')
       // removeSelectedTask()
     };
   }, [taskWasSelected])

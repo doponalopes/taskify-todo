@@ -6,31 +6,39 @@ import {
   serverTimestamp,
   updateDoc,
   doc,
-  deleteDoc
+  deleteDoc,
+  onSnapshot
 } from "firebase/firestore";
 
 import { app } from "./config";
 
-export async function fetchAllTask() {
+export async function fetchAllTask(callback) {
   const db = getFirestore(app);
   const tasksCol = collection(db, "tasks");
 
   try {
-    const response = await getDocs(tasksCol);
+    const unsubscribe = onSnapshot(tasksCol, async (snapshot) => {
+      const allTasks = [];
 
-    const allTask = response.docs.map((doc) => ({
-      id: doc.id,
-      title: doc.data().title,
-      text: doc.data().text,
-      blocked: doc.data().blocked,
-      completed: doc.data().completed,
-      createdAt: doc.data().createdAt.seconds,
-      deliveryDate: doc.data().deliveryDate.seconds,
-      ownerUid: doc.data().ownerUid,
-      onwerName: doc.data().onwerName,
-    }));
+      snapshot.forEach((doc) => {
+        allTasks.push({
+          id: doc.id,
+          title: doc.data().title,
+          text: doc.data().text,
+          blocked: doc.data().blocked,
+          completed: doc.data().completed,
+          createdAt: doc.data().createdAt.seconds,
+          deliveryDate: doc.data().deliveryDate.seconds,
+          ownerUid: doc.data().ownerUid,
+          ownerName: doc.data().ownerName,
+        });
+      });
 
-    return allTask;
+      callback(allTasks);
+    });
+
+    return unsubscribe;
+
   } catch (error) {
     console.error("Erro ao obter dados da coleção:", error);
     throw error;
