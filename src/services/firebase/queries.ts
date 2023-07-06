@@ -1,6 +1,5 @@
 import {
   collection,
-  getDocs,
   getFirestore,
   addDoc,
   serverTimestamp,
@@ -10,15 +9,17 @@ import {
   onSnapshot
 } from "firebase/firestore";
 
+import { RegisterUpdateTaskTypes, TaskProps } from "types/taskTypes";
+
 import { app } from "./config";
 
-export async function fetchAllTask(callback) {
+export async function fetchAllTask(callback: (tasks: TaskProps[]) => void) {
   const db = getFirestore(app);
   const tasksCol = collection(db, "tasks");
 
   try {
     const unsubscribe = onSnapshot(tasksCol, async (snapshot) => {
-      const allTasks = [];
+      const allTasks: TaskProps[] = [];
 
       snapshot.forEach((doc) => {
         allTasks.push({
@@ -45,7 +46,7 @@ export async function fetchAllTask(callback) {
   }
 }
 
-export async function createTask(data) {
+export async function createTask(data: RegisterUpdateTaskTypes) {
   const db = getFirestore(app);
   const tasksCol = collection(db, "tasks");
 
@@ -60,7 +61,7 @@ export async function createTask(data) {
   }
 }
 
-export async function updateTask(id, data) {
+export async function updateTask(id: string, data: RegisterUpdateTaskTypes) {
   const db = getFirestore(app);
 
   try {
@@ -74,7 +75,7 @@ export async function updateTask(id, data) {
   }
 }
 
-export async function changeTaskStatus(id, completed) {
+export async function changeTaskStatus(id: string, completed: boolean) {
   const db = getFirestore(app);
 
   try {
@@ -88,7 +89,7 @@ export async function changeTaskStatus(id, completed) {
   }
 }
 
-export async function removeTask(id) {
+export async function removeTask(id: string) {
   const db = getFirestore(app);
 
   try {

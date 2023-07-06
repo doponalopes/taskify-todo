@@ -21,7 +21,7 @@ export const INITIAL_STATE = {
   selectTask: {} as TaskProps,
 }
 
-export function tasksReducer(state = INITIAL_STATE, action: Action) {
+export function tasksReducer(state: any, action: Action) {
   switch (action.type) {
     case types.FETCH_ALL_TASKS:
       return {
@@ -61,7 +61,7 @@ export function tasksReducer(state = INITIAL_STATE, action: Action) {
       }
 
     case types.SELECT_TASK_TO_EDIT:
-      const task = state.allTasks.filter(({ id }) => id === action.payload)[0]
+      const task = state.allTasks.filter(({ id }: TaskProps) => id === action.payload)[0]
 
       return {
         ...state,

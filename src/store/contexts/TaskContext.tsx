@@ -1,5 +1,4 @@
 import {
-  ReactNode,
   createContext,
   useEffect,
   useReducer
@@ -7,15 +6,18 @@ import {
 
 import { INITIAL_STATE, tasksReducer, types } from "@store/reducers/TaskReducer";
 
-import { createTask, updateTask, fetchAllTask, changeTaskStatus, removeTask } from "@services/firebase/queries";
-
-type Props = {
-  children: ReactNode
-}
+import {
+  createTask,
+  updateTask,
+  fetchAllTask,
+  changeTaskStatus,
+  removeTask
+} from "@services/firebase/queries";
+import { RegisterUpdateTaskTypes, TaskContextTypes } from "types/taskTypes";
 
 export const TaskContext = createContext({});
 
-export function TaskContextProvider({ children }: Props) {
+export function TaskContextProvider({ children }: TaskContextTypes) {
   const [tasksState, dispatch] = useReducer(tasksReducer, INITIAL_STATE)
 
   const {
@@ -37,7 +39,7 @@ export function TaskContextProvider({ children }: Props) {
     getAllTasks();
   }, []);
 
-  async function registerNewTask(data) {
+  async function registerNewTask(data: RegisterUpdateTaskTypes) {
     dispatch({ type: types.REGISTER_NEW_TASK })
 
     try {
@@ -57,7 +59,7 @@ export function TaskContextProvider({ children }: Props) {
     dispatch({ type: types.REMOVE_SELECTED_TASK })
   }
 
-  async function updateTaskHandler(id: string, data) {
+  async function updateTaskHandler(id: string, data: RegisterUpdateTaskTypes) {
     dispatch({ type: types.UPDATE_TASK })
 
     try {
@@ -69,7 +71,7 @@ export function TaskContextProvider({ children }: Props) {
     }
   }
 
-  async function changeTaskStatusHandler(id: string, data) {
+  async function changeTaskStatusHandler(id: string, data: boolean) {
     try {
       await changeTaskStatus(id, data)
     } catch (error) {

@@ -66,7 +66,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
       text,
       deliveryDate: convertDateToTimestamp(deliveryDate),
       blocked,
-      onwerName: userInformation.username,
+      ownerName: userInformation.username,
       ownerUid: userInformation.uid,
     }
 

@@ -125,7 +125,7 @@ export function Home() {
             id,
             title,
             text,
-            onwerName,
+            ownerName,
             ownerUid,
             blocked,
             completed
@@ -137,7 +137,7 @@ export function Home() {
               title={title}
               blocked={blocked}
               ownerUid={ownerUid}
-              onwerName={onwerName}
+              ownerName={ownerName}
               completed={completed}
               onOpenRegisterUpdate={onOpenRegisterUpdate}
             />

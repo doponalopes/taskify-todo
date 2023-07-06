@@ -27,7 +27,7 @@ export function Task({
   id,
   title,
   text,
-  onwerName,
+  ownerName,
   ownerUid,
   blocked,
   completed,
@@ -102,8 +102,8 @@ export function Task({
           size="sm"
           bg="blue.500"
           color="white"
-          name={onwerName}
-          title={onwerName}
+          name={ownerName}
+          title={ownerName}
         />
 
         <HStack alignItems="center">
