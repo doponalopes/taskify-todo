@@ -7,7 +7,7 @@ import {
 
 import { INITIAL_STATE, tasksReducer, types } from "@store/reducers/TaskReducer";
 
-import { createTask, updateTask, fetchAllTask } from "@services/firebase/queries";
+import { createTask, updateTask, fetchAllTask, changeTaskStatus, removeTask } from "@services/firebase/queries";
 
 type Props = {
   children: ReactNode
@@ -57,7 +57,7 @@ export function TaskContextProvider({ children }: Props) {
     dispatch({ type: types.REMOVE_SELECTED_TASK })
   }
 
-  async function updateTaskHandler(id, data) {
+  async function updateTaskHandler(id: string, data) {
     dispatch({ type: types.UPDATE_TASK })
 
     try {
@@ -66,6 +66,24 @@ export function TaskContextProvider({ children }: Props) {
 
     } finally {
       dispatch({ type: types.SUCCESS_UPDATE_TASK })
+    }
+  }
+
+  async function changeTaskStatusHandler(id: string, data) {
+    try {
+      await changeTaskStatus(id, data)
+    } catch (error) {
+
+    } finally {
+    }
+  }
+
+  async function removeTaskHandler(id: string) {
+    try {
+      await removeTask(id)
+    } catch (error) {
+
+    } finally {
     }
   }
 
@@ -78,7 +96,9 @@ export function TaskContextProvider({ children }: Props) {
       registerNewTask,
       selectTaskToEdit,
       removeSelectedTask,
-      updateTaskHandler
+      updateTaskHandler,
+      changeTaskStatusHandler,
+      removeTaskHandler
     }}>
       {children}
     </TaskContext.Provider>

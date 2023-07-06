@@ -17,16 +17,25 @@ export function Task({
   completed,
   onOpenRegisterUpdate
 }: TaskProps) {
-  const { selectTaskToEdit } = useContext(TaskContext)
+  const { selectTaskToEdit, changeTaskStatusHandler, removeTaskHandler } = useContext(TaskContext)
 
   const variantBadge = completed ? 'green' : 'orange'
   const statusText = completed ? 'Concluída' : 'Em andamento'
+  const statusButton = completed ? 'Voltar para em andamento' : 'Concluir tarefa'
   const isBlocked = blocked ? <MdLockOutline size={24} /> : <MdOutlineLockOpen size={24} />
 
   function editTaskHandler() {
     onOpenRegisterUpdate()
 
     selectTaskToEdit(id)
+  }
+
+  async function changeStatusHandler() {
+    await changeTaskStatusHandler(id, !completed)
+  }
+
+  async function removeHandler() {
+    removeTaskHandler(id)
   }
 
   return (
@@ -46,8 +55,8 @@ export function Task({
           <Portal>
             <MenuList>
               <MenuItem onClick={editTaskHandler}>Editar</MenuItem>
-              <MenuItem>Excluir</MenuItem>
-              <MenuItem>Concluir</MenuItem>
+              <MenuItem onClick={changeStatusHandler}>{statusButton}</MenuItem>
+              <MenuItem onClick={removeHandler}>Excluir</MenuItem>
             </MenuList>
           </Portal>
         </Menu>

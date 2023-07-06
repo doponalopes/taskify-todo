@@ -5,7 +5,8 @@ import {
   addDoc,
   serverTimestamp,
   updateDoc,
-  doc
+  doc,
+  deleteDoc
 } from "firebase/firestore";
 
 import { app } from "./config";
@@ -63,5 +64,30 @@ export async function updateTask(id, data) {
   } catch (error) {
     console.error('Erro ao atualizar documento:', error);
   }
+}
 
+export async function changeTaskStatus(id, completed) {
+  const db = getFirestore(app);
+
+  try {
+    const docRef = doc(db, 'tasks', id);
+
+    await updateDoc(docRef, {
+      completed
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar o status do documento:', error);
+  }
+}
+
+export async function removeTask(id) {
+  const db = getFirestore(app);
+
+  try {
+    const docRef = doc(db, 'tasks', id);
+
+    await deleteDoc(docRef);
+  } catch (error) {
+    console.error('Erro ao remover o documento:', error);
+  }
 }
