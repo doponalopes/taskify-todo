@@ -1,3 +1,5 @@
+import { types } from "@store/reducers/TaskReducer";
+
 export type TaskProps = {
   id: string;
   title: string;
@@ -13,3 +15,8 @@ export type TaskProps = {
 export type TaskTypes = TaskProps & {
   onOpenRegisterUpdate: () => void;
 }
+
+export type Action = {
+  type: typeof types[keyof typeof types];
+  payload?: any;
+};

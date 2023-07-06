@@ -1,7 +1,9 @@
+import { Action } from "types/authTypes"
+
 export const types = {
   LOGIN: 'AUTH/LOGIN',
   LOGOUT: 'AUTH/LOGOUT'
-}
+} as const
 
 export const INITIAL_STATE = {
   username: '',
@@ -9,7 +11,7 @@ export const INITIAL_STATE = {
   isLoggedIn: false
 }
 
-export function authReducer(state = INITIAL_STATE, action) {
+export function authReducer(state = INITIAL_STATE, action: Action) {
   switch (action.type) {
     case types.LOGIN:
       return {

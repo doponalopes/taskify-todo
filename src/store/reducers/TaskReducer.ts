@@ -1,4 +1,4 @@
-import { TaskProps } from "types/taskTypes"
+import { Action, TaskProps } from "types/taskTypes"
 
 export const types = {
   FETCH_ALL_TASKS: 'TASK/FETCH_ALL_TASKS',
@@ -12,7 +12,7 @@ export const types = {
 
   SELECT_TASK_TO_EDIT: 'TASK/SELECT_TASK_TO_EDIT',
   REMOVE_SELECTED_TASK: 'TASK/REMOVE_SELECTED_TASK',
-}
+} as const
 
 export const INITIAL_STATE = {
   allTasks: [] as TaskProps[],
@@ -21,7 +21,7 @@ export const INITIAL_STATE = {
   selectTask: {} as TaskProps,
 }
 
-export function tasksReducer(state = INITIAL_STATE, action) {
+export function tasksReducer(state = INITIAL_STATE, action: Action) {
   switch (action.type) {
     case types.FETCH_ALL_TASKS:
       return {
