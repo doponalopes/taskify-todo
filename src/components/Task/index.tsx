@@ -6,6 +6,11 @@ import { TaskProps } from "@store/reducers/TaskReducer";
 import { IconButton, Badge } from "..";
 import { useContext } from "react";
 import { TaskContext } from "@store/contexts/TaskContext";
+import { AuthContext } from "@store/contexts/AuthContext";
+
+type Props = TaskProps & {
+  onOpenRegisterUpdate: () => void;
+}
 
 export function Task({
   id,
@@ -16,12 +21,14 @@ export function Task({
   blocked,
   completed,
   onOpenRegisterUpdate
-}: TaskProps) {
+}: Props) {
   const { selectTaskToEdit, changeTaskStatusHandler, removeTaskHandler } = useContext(TaskContext)
+  const { userInformation } = useContext(AuthContext)
 
   const variantBadge = completed ? 'green' : 'orange'
   const statusText = completed ? 'Concluída' : 'Em andamento'
   const statusButton = completed ? 'Voltar para em andamento' : 'Concluir tarefa'
+  const canChange = blocked && ownerUid !== userInformation.uid ? false : true
   const isBlocked = blocked ? <MdLockOutline size={24} /> : <MdOutlineLockOpen size={24} />
 
   function editTaskHandler() {
@@ -54,9 +61,9 @@ export function Task({
           /></MenuButton>
           <Portal>
             <MenuList>
-              <MenuItem onClick={editTaskHandler}>Editar</MenuItem>
-              <MenuItem onClick={changeStatusHandler}>{statusButton}</MenuItem>
-              <MenuItem onClick={removeHandler}>Excluir</MenuItem>
+              <MenuItem isDisabled={!canChange} onClick={editTaskHandler}>Editar</MenuItem>
+              <MenuItem isDisabled={!canChange} onClick={changeStatusHandler}>{statusButton}</MenuItem>
+              <MenuItem isDisabled={!canChange} onClick={removeHandler}>Excluir</MenuItem>
             </MenuList>
           </Portal>
         </Menu>
