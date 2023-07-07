@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Box, Grid, HStack, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
@@ -30,6 +30,8 @@ const buttonGroup = [
 
 export function Home() {
   const [activeButtonGroup, setActiveButtonGroup] = useState('Todas')
+  const [search, setSearch] = useState('')
+
   const {
     isOpen: isOpenRegisterUpdate,
     onOpen: onOpenRegisterUpdate,
@@ -43,13 +45,18 @@ export function Home() {
 
   const skeletons = new Array(6).fill(null);
 
-  const { allTasks, isLoadingFetch } = useContext(TaskContext)
+  const { tasks, isLoadingFetch, searchTaskHandler } = useContext(TaskContext)
 
   function changeActiveButtonGroup(value: string) {
     setActiveButtonGroup(value)
   }
 
   function applyFilerHandler() { }
+
+  function changeSearchTaskHandler(value: string) {
+    setSearch(value)
+    searchTaskHandler(value)
+  }
 
   return (
     <Container mt={8}>
@@ -70,7 +77,9 @@ export function Home() {
 
       <HStack display="flex" alignItems="center" justifyContent="space-between">
         <Box flex={1}>
-          <InputSearch />
+          <InputSearch
+            value={search}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => changeSearchTaskHandler(e.target.value)} />
         </Box>
 
         <HStack flex={1} gap={6} justifyContent="flex-end" >
@@ -121,9 +130,9 @@ export function Home() {
             />
           ))}
         </Grid>
-      ) : allTasks.length > 0 ? (
+      ) : tasks.length > 0 ? (
         <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
-          {allTasks.map(({
+          {tasks.map(({
             id,
             title,
             text,

@@ -12,10 +12,13 @@ export const types = {
 
   SELECT_TASK_TO_EDIT: 'TASK/SELECT_TASK_TO_EDIT',
   REMOVE_SELECTED_TASK: 'TASK/REMOVE_SELECTED_TASK',
+
+  SEARCH_TASK: 'TASK/REMOVE_SELECTED_TASK'
 } as const
 
 export const INITIAL_STATE = {
   allTasks: [] as TaskProps[],
+  tasks: [] as TaskProps[],
   isLoadingFetch: true,
   isLoadingRegisterUpdate: false,
   selectTask: {} as TaskProps,
@@ -33,6 +36,7 @@ export function tasksReducer(state: any, action: Action) {
       return {
         ...state,
         allTasks: action.payload,
+        tasks: action.payload,
         isLoadingFetch: false
       }
 
@@ -66,6 +70,16 @@ export function tasksReducer(state: any, action: Action) {
       return {
         ...state,
         selectTask: task
+      }
+
+    case types.SEARCH_TASK:
+      const filtered = state.allTasks.filter((item: TaskProps) =>
+        item.title.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
+      return {
+        ...state,
+        tasks: filtered
       }
 
     case types.REMOVE_SELECTED_TASK:

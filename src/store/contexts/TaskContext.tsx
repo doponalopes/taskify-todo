@@ -21,7 +21,7 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
   const [tasksState, dispatch] = useReducer(tasksReducer, INITIAL_STATE)
 
   const {
-    allTasks,
+    tasks,
     isLoadingFetch,
     isLoadingRegisterUpdate,
     selectTask
@@ -89,9 +89,13 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     }
   }
 
+  function searchTaskHandler(text: string) {
+    dispatch({ type: types.SEARCH_TASK, payload: text })
+  }
+
   return (
     <TaskContext.Provider value={{
-      allTasks,
+      tasks,
       isLoadingFetch,
       isLoadingRegisterUpdate,
       selectTask,
@@ -100,7 +104,8 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
       removeSelectedTaskHandler,
       updateTaskHandler,
       changeTaskStatusHandler,
-      removeTaskHandler
+      removeTaskHandler,
+      searchTaskHandler
     }}>
       {children}
     </TaskContext.Provider>
