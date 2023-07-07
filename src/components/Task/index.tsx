@@ -33,7 +33,7 @@ export function Task({
   completed,
   onOpenRegisterUpdate
 }: TaskTypes) {
-  const { selectTaskToEdit, changeTaskStatusHandler, removeTaskHandler } = useContext(TaskContext)
+  const { selectTaskToEditHandler, changeTaskStatusHandler, removeTaskHandler } = useContext(TaskContext)
   const { userInformation } = useContext(AuthContext)
 
   const variantBadge = completed ? 'green' : 'orange'
@@ -45,7 +45,7 @@ export function Task({
   function editTaskHandler() {
     onOpenRegisterUpdate()
 
-    selectTaskToEdit(id)
+    selectTaskToEditHandler(id)
   }
 
   async function changeStatusHandler() {

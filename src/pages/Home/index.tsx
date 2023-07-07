@@ -16,6 +16,8 @@ import {
 
 import { TaskContext } from "@store/contexts/TaskContext";
 
+import { TaskProps } from "types/taskTypes";
+
 import { RegisterAndUpdate } from "./RegisterAndUpdate";
 import { Filter } from "./Filter";
 
@@ -129,7 +131,7 @@ export function Home() {
             ownerUid,
             blocked,
             completed
-          }) => (
+          }: TaskProps) => (
             <Task
               key={id}
               id={id}

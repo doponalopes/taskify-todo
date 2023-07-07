@@ -15,7 +15,7 @@ import {
 } from "@services/firebase/queries";
 import { RegisterUpdateTaskTypes, TaskContextTypes } from "types/taskTypes";
 
-export const TaskContext = createContext({});
+export const TaskContext = createContext<any>({});
 
 export function TaskContextProvider({ children }: TaskContextTypes) {
   const [tasksState, dispatch] = useReducer(tasksReducer, INITIAL_STATE)
@@ -39,7 +39,7 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     getAllTasks();
   }, []);
 
-  async function registerNewTask(data: RegisterUpdateTaskTypes) {
+  async function registerNewTaskHandler(data: RegisterUpdateTaskTypes) {
     dispatch({ type: types.REGISTER_NEW_TASK })
 
     try {
@@ -51,11 +51,11 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     }
   }
 
-  function selectTaskToEdit(id: string) {
+  function selectTaskToEditHandler(id: string) {
     dispatch({ type: types.SELECT_TASK_TO_EDIT, payload: id })
   }
 
-  function removeSelectedTask() {
+  function removeSelectedTaskHandler() {
     dispatch({ type: types.REMOVE_SELECTED_TASK })
   }
 
@@ -95,9 +95,9 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
       isLoadingFetch,
       isLoadingRegisterUpdate,
       selectTask,
-      registerNewTask,
-      selectTaskToEdit,
-      removeSelectedTask,
+      registerNewTaskHandler,
+      selectTaskToEditHandler,
+      removeSelectedTaskHandler,
       updateTaskHandler,
       changeTaskStatusHandler,
       removeTaskHandler

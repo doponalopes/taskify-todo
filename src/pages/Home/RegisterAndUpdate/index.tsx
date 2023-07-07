@@ -25,7 +25,6 @@ import { AuthContext } from "@store/contexts/AuthContext";
 type RegisterAndUpdateProps = {
   isOpen: boolean;
   onClose: () => void;
-  onClick: () => void;
 }
 
 export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
@@ -35,9 +34,9 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
   const [blocked, setBlocked] = useState(false)
 
   const {
-    registerNewTask,
+    registerNewTaskHandler,
     updateTaskHandler,
-    removeSelectedTask,
+    removeSelectedTaskHandler,
     isLoadingRegisterUpdate,
     selectTask
   } = useContext(TaskContext)
@@ -56,7 +55,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
     }
 
     return () => {
-      // removeSelectedTask()
+      // removeSelectedTaskHandler()
     };
   }, [taskWasSelected])
 
@@ -74,7 +73,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
       if (taskWasSelected) {
         await updateTaskHandler(selectTask?.id, params)
       } else {
-        await registerNewTask(params)
+        await registerNewTaskHandler(params)
       }
 
       onClose()

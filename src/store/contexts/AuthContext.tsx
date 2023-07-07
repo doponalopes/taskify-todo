@@ -17,7 +17,7 @@ import { AuthContextTypes } from "types/authTypes";
 
 import { auth } from '@services/firebase/config';
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext<any>({});
 
 export function AuthContextProvider({ children }: AuthContextTypes) {
   const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE)
@@ -72,9 +72,9 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
       login,
       logout,
       userInformation: authState,
-      isLoading
+      isLoading,
     }}>
       {children}
-    </AuthContext.Provider>
+    </AuthContext.Provider >
   )
 }
