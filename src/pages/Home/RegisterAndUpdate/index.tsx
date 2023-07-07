@@ -46,18 +46,10 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
   const taskWasSelected = !!selectTask?.id
   const modalTile = taskWasSelected ? 'Editar' : 'Cadastrar'
 
-  useEffect(() => {
-    if (taskWasSelected) {
-      setTitle(selectTask.title)
-      setDeliveryDate(selectTask.deliveryDate)
-      setText(selectTask.text)
-      setBlocked(selectTask.blocked)
-    }
-
-    return () => {
-      // removeSelectedTaskHandler()
-    };
-  }, [taskWasSelected])
+  function onCloseModalHandler() {
+    onClose()
+    removeSelectedTaskHandler()
+  }
 
   async function onClickHandler() {
     const params = {
@@ -76,14 +68,23 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
         await registerNewTaskHandler(params)
       }
 
-      onClose()
+      onCloseModalHandler()
     } catch (error) {
 
     }
   }
 
+  useEffect(() => {
+    if (taskWasSelected) {
+      setTitle(selectTask.title)
+      setDeliveryDate(selectTask.deliveryDate)
+      setText(selectTask.text)
+      setBlocked(selectTask.blocked)
+    }
+  }, [taskWasSelected, selectTask])
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="2xl">
+    <Modal isOpen={isOpen} onClose={onCloseModalHandler} size="2xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontWeight="medium">{modalTile} tarefa</ModalHeader>
