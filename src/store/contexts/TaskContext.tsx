@@ -93,6 +93,10 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     dispatch({ type: types.SEARCH_TASK, payload: text })
   }
 
+  function visualizationTaskHandler(type: string) {
+    dispatch({ type: types.VISUALIZATION_TASK, payload: type })
+  }
+
   return (
     <TaskContext.Provider value={{
       tasks,
@@ -105,7 +109,8 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
       updateTaskHandler,
       changeTaskStatusHandler,
       removeTaskHandler,
-      searchTaskHandler
+      searchTaskHandler,
+      visualizationTaskHandler
     }}>
       {children}
     </TaskContext.Provider>

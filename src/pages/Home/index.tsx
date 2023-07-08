@@ -22,14 +22,29 @@ import { RegisterAndUpdate } from "./RegisterAndUpdate";
 import { Filter } from "./Filter";
 
 const buttonGroup = [
-  'Todas',
-  'Em andamento',
-  'Concluídas',
-  'Bloqueadas'
+  {
+    label: 'Todas',
+    value: 'all'
+  },
+
+  {
+    label: 'Em andamento',
+    value: 'inProgress'
+  },
+
+  {
+    label: 'Concluídas',
+    value: 'completed'
+  },
+
+  {
+    label: 'Bloqueadas',
+    value: 'blocked'
+  }
 ]
 
 export function Home() {
-  const [activeButtonGroup, setActiveButtonGroup] = useState('Todas')
+  const [activeButtonGroup, setActiveButtonGroup] = useState('all')
   const [search, setSearch] = useState('')
 
   const {
@@ -45,10 +60,16 @@ export function Home() {
 
   const skeletons = new Array(6).fill(null);
 
-  const { tasks, isLoadingFetch, searchTaskHandler } = useContext(TaskContext)
+  const {
+    tasks,
+    isLoadingFetch,
+    searchTaskHandler,
+    visualizationTaskHandler
+  } = useContext(TaskContext)
 
   function changeActiveButtonGroup(value: string) {
     setActiveButtonGroup(value)
+    visualizationTaskHandler(value)
   }
 
   function applyFilerHandler() { }
@@ -108,11 +129,11 @@ export function Home() {
         <HStack>
           {buttonGroup.map((btn) => (
             <ButtonGroup
-              key={btn}
-              onClick={() => changeActiveButtonGroup(btn)}
-              active={activeButtonGroup === btn}
+              key={btn.value}
+              onClick={() => changeActiveButtonGroup(btn.value)}
+              active={activeButtonGroup === btn.value}
             >
-              {btn}
+              {btn.label}
             </ButtonGroup>
           ))}
         </HStack>
