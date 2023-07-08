@@ -53,7 +53,7 @@ const cssButtonGroup = {
 
 export function Home() {
   const [visualizationValue, setVisualizationValue] = useState('all')
-  const [search, setSearch] = useState('')
+  const [searchValue, setSearchValue] = useState('')
 
   const {
     isOpen: isOpenRegisterUpdate,
@@ -76,7 +76,8 @@ export function Home() {
     deliveryDate,
     createdAt,
     ownerUid,
-    visualization
+    visualization,
+    researchField
   } = useContext(TaskContext)
 
   function changeActiveButtonGroup(value: string) {
@@ -86,18 +87,27 @@ export function Home() {
       deliveryDate,
       createdAt,
       ownerUid,
-      visualization: value
+      visualization: value,
+      researchField: searchValue
     })
   }
 
   function changeSearchTaskHandler(value: string) {
-    setSearch(value)
-    searchTaskHandler(value)
+    setSearchValue(value)
+
+    applyFilterHandler({
+      deliveryDate,
+      createdAt,
+      ownerUid,
+      visualization: visualizationValue,
+      researchField: value
+    })
   }
 
   useEffect(() => {
+    setSearchValue(researchField)
     setVisualizationValue(visualization)
-  }, [])
+  }, [researchField, visualization])
 
   return (
     <Container mt={8}>
@@ -124,7 +134,7 @@ export function Home() {
       >
         <Box flex={1} width="100%" mb={{ base: 8 }}>
           <InputSearch
-            value={search}
+            value={searchValue}
             onChange={(e: ChangeEvent<HTMLInputElement>) => changeSearchTaskHandler(e.target.value)} />
         </Box>
 

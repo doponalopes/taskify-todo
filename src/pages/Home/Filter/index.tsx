@@ -46,7 +46,8 @@ export function Filter({ isOpen, onClose }: Props) {
     deliveryDate,
     createdAt,
     ownerUid,
-    visualization
+    visualization,
+    researchField
   } = useContext(TaskContext)
 
   function validateForm() {
@@ -81,7 +82,8 @@ export function Filter({ isOpen, onClose }: Props) {
         deliveryDate: deliveryDateValue,
         createdAt: createdAtValue,
         ownerUid: ownerUidValue,
-        visualization
+        visualization,
+        researchField
       })
     }
   }

@@ -118,12 +118,23 @@ export function tasksReducer(state: any, action: Action) {
     case types.APPLY_FILTER:
       let filteredList = state.allTasks
 
-      const { deliveryDate, createdAt, ownerUid, visualization } = action.payload
+      const {
+        deliveryDate,
+        createdAt,
+        ownerUid,
+        visualization,
+        researchField
+      } = action.payload
+
 
       if (deliveryDate.toString().trim() !== '' ||
         createdAt.toString().trim() !== '' ||
-        ownerUid !== '' || visualization !== 'all') {
+        ownerUid !== '' || researchField.toString().trim() !== '' || visualization !== 'all') {
         filteredList = state.allTasks.filter((task: TaskProps) => {
+
+          if (!task.title.toLowerCase().includes(researchField.toLowerCase())) {
+            return false
+          }
 
           if (visualization === 'inProgress' && task.completed) {
             return false
@@ -159,7 +170,8 @@ export function tasksReducer(state: any, action: Action) {
         deliveryDate,
         createdAt,
         ownerUid,
-        visualization
+        visualization,
+        researchField
       }
 
     default:
