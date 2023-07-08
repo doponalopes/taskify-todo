@@ -43,6 +43,14 @@ const buttonGroup = [
   }
 ]
 
+const cssButtonGroup = {
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+  '-ms-overflow-style': 'none',
+  scrollbarWidth: 'none',
+}
+
 export function Home() {
   const [activeButtonGroup, setActiveButtonGroup] = useState('all')
   const [search, setSearch] = useState('')
@@ -96,37 +104,62 @@ export function Home() {
         />
       )}
 
-      <HStack display="flex" alignItems="center" justifyContent="space-between">
-        <Box flex={1}>
+      <HStack
+        wrap="wrap"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Box flex={1} width="100%" mb={{ base: 8 }}>
           <InputSearch
             value={search}
             onChange={(e: ChangeEvent<HTMLInputElement>) => changeSearchTaskHandler(e.target.value)} />
         </Box>
 
-        <HStack flex={1} gap={6} justifyContent="flex-end" >
+        <HStack
+          gap={6}
+          flex={1}
+          wrap="wrap"
+          justifyContent={{ base: "center", md: "flex-end" }}
+        >
           <OnlineOfflineUsers />
 
-          <IconButton
-            color="white"
-            aria-label="Filtrar"
-            onClick={onOpenFilter}
-            icon={<MdFilterList />}
-          />
+          <HStack>
+            <IconButton
+              color="white"
+              aria-label="Filtrar"
+              onClick={onOpenFilter}
+              icon={<MdFilterList />}
+              mr={4}
+            />
 
-          <Button
-            color='blue'
-            fontWeight="medium"
-            onClick={onOpenRegisterUpdate}
-          >
-            Nova tarefa
-          </Button>
+            <Button
+              color='blue'
+              fontWeight="medium"
+              onClick={onOpenRegisterUpdate}
+            >
+              Nova tarefa
+            </Button>
+
+          </HStack>
         </HStack>
       </HStack>
 
-      <HStack mt={8} display="flex" alignItems="center" justifyContent="space-between">
-        <Text fontWeight="medium">Listagem de tarefas</Text>
+      <HStack
+        mt={8}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Text
+          fontWeight="medium"
+          display={{ base: "none", md: "block" }}
+        >
+          Listagem de tarefas
+        </Text>
 
-        <HStack>
+        <Box overflowX="auto" whiteSpace="nowrap" css={cssButtonGroup}>
           {buttonGroup.map((btn) => (
             <ButtonGroup
               key={btn.value}
@@ -136,11 +169,20 @@ export function Home() {
               {btn.label}
             </ButtonGroup>
           ))}
-        </HStack>
+        </Box>
       </HStack>
 
       {isLoadingFetch ? (
-        <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
+        <Grid
+          gap={6}
+          mt={10}
+          mb={10}
+          templateColumns={{
+            base: "1fr",
+            md: "1fr 1fr",
+            lg: "1fr 1fr 1fr"
+          }}
+        >
           {skeletons.map((_, i) => (
             <Skeleton
               key={i}
@@ -152,7 +194,16 @@ export function Home() {
           ))}
         </Grid>
       ) : tasks.length > 0 ? (
-        <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={10}>
+        <Grid
+          gap={6}
+          mt={10}
+          mb={10}
+          templateColumns={{
+            base: "1fr",
+            md: "1fr 1fr",
+            lg: "1fr 1fr 1fr"
+          }}
+        >
           {tasks.map(({
             id,
             title,
