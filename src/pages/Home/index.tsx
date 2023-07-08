@@ -80,8 +80,6 @@ export function Home() {
     visualizationTaskHandler(value)
   }
 
-  function applyFilerHandler() { }
-
   function changeSearchTaskHandler(value: string) {
     setSearch(value)
     searchTaskHandler(value)
@@ -100,7 +98,6 @@ export function Home() {
         <Filter
           isOpen={isOpenFilter}
           onClose={onCloseFilter}
-          onClick={applyFilerHandler}
         />
       )}
 

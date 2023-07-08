@@ -7,8 +7,8 @@ export type TaskProps = {
   text: string;
   ownerName: string;
   ownerUid: string;
-  createdAt: number;
-  deliveryDate: number;
+  createdAt: string;
+  deliveryDate: string;
   blocked: boolean;
   completed: boolean;
 }

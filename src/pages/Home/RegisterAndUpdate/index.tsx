@@ -29,8 +29,8 @@ type RegisterAndUpdateProps = {
 }
 
 export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
-  const toast = useToast()
   const { userInformation } = useContext(AuthContext)
+  const toast = useToast()
 
   const [title, setTitle] = useState('')
   const [deliveryDate, setDeliveryDate] = useState('')

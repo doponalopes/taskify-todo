@@ -13,6 +13,8 @@ import { RegisterUpdateTaskTypes, TaskProps } from "types/taskTypes";
 
 import { app } from "./config";
 
+import { convertTimestampToDate } from "@utils/dataUtils";
+
 export async function fetchAllTask(callback: (tasks: TaskProps[]) => void) {
   const db = getFirestore(app);
   const tasksCol = collection(db, "tasks");
@@ -28,8 +30,8 @@ export async function fetchAllTask(callback: (tasks: TaskProps[]) => void) {
           text: doc.data().text,
           blocked: doc.data().blocked,
           completed: doc.data().completed,
-          createdAt: doc.data().createdAt.seconds,
-          deliveryDate: doc.data().deliveryDate.seconds,
+          createdAt: convertTimestampToDate(doc.data().createdAt.toDate().toDateString()),
+          deliveryDate: convertTimestampToDate(doc.data().deliveryDate.toDate().toDateString()),
           ownerUid: doc.data().ownerUid,
           ownerName: doc.data().ownerName,
         });
