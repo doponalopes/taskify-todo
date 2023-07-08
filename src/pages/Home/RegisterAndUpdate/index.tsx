@@ -7,7 +7,8 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay
+  ModalOverlay,
+  useToast
 } from "@chakra-ui/react";
 
 import {
@@ -17,7 +18,7 @@ import {
   Textarea
 } from '@components'
 
-import { convertDateToTimestamp, formatDate } from "@utils/dataUtils";
+import { convertDateToTimestamp, formatDate, validateDate } from "@utils/dataUtils";
 
 import { TaskContext } from "@store/contexts/TaskContext";
 import { AuthContext } from "@store/contexts/AuthContext";
@@ -28,6 +29,9 @@ type RegisterAndUpdateProps = {
 }
 
 export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
+  const toast = useToast()
+  const { userInformation } = useContext(AuthContext)
+
   const [title, setTitle] = useState('')
   const [deliveryDate, setDeliveryDate] = useState('')
   const [text, setText] = useState('')
@@ -41,7 +45,6 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
     selectTask
   } = useContext(TaskContext)
 
-  const { userInformation } = useContext(AuthContext)
 
   const taskWasSelected = !!selectTask?.id
   const modalTile = taskWasSelected ? 'Editar' : 'Cadastrar'
@@ -51,25 +54,62 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
     removeSelectedTaskHandler()
   }
 
-  async function onClickHandler() {
-    const params = {
-      title,
-      text,
-      deliveryDate: convertDateToTimestamp(deliveryDate),
-      blocked,
-      ownerName: userInformation.username,
-      ownerUid: userInformation.uid,
+  function validateForm() {
+    let description = ''
+
+    if (text.trim() === '') {
+      description = 'O campo Detalhes é obrigatório!'
     }
 
-    try {
-      if (taskWasSelected) {
-        await updateTaskHandler(selectTask?.id, params)
-      } else {
-        await registerNewTaskHandler(params)
+    if (!validateDate(deliveryDate)) {
+      description = 'Preencha uma Data de entrega válida!'
+    }
+
+    if (deliveryDate.toString().trim() === '') {
+      description = 'O campo Data de entrega é obrigatório!'
+    }
+
+    if (title.trim() === '') {
+      description = 'O campo Título é obrigatório!'
+    }
+
+    if (description) {
+      toast({
+        description,
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+        position: 'top-right'
+      })
+
+      return false
+    }
+
+    return true
+  }
+
+  async function onClickHandler() {
+    if (validateForm()) {
+      const params = {
+        title,
+        text,
+        deliveryDate: convertDateToTimestamp(deliveryDate),
+        blocked,
+        ownerName: userInformation.username,
+        ownerUid: userInformation.uid,
       }
 
-      onCloseModalHandler()
-    } catch (error) {
+      try {
+        if (taskWasSelected) {
+          await updateTaskHandler(selectTask?.id, params)
+        } else {
+          await registerNewTaskHandler(params)
+        }
+
+        onCloseModalHandler()
+      } catch (error) {
+
+      }
 
     }
   }

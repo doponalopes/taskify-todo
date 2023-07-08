@@ -19,3 +19,8 @@ export function convertDateToTimestamp(dataString: string): Timestamp {
 
   return Timestamp.fromDate(data);
 }
+
+export function validateDate(data: string): boolean {
+  const date = new Date(data);
+  return date instanceof Date && !isNaN(date.getTime());
+}

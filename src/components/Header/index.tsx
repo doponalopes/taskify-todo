@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Avatar, Box, HStack, Heading } from '@chakra-ui/react';
-import { MdOutlineWbSunny, MdOutlineNotifications } from 'react-icons/md'
+import { MdOutlineWbSunny } from 'react-icons/md'
 
 import { AuthContext } from '@store/contexts/AuthContext';
 
@@ -21,7 +21,6 @@ export function Header() {
         <HStack gap={8}>
           <HStack gap={6}>
             <IconButton color="gray.100" icon={<MdOutlineWbSunny />} aria-label="Modo escuro/claro" />
-            <IconButton color="gray.100" icon={<MdOutlineNotifications />} aria-label="Notificação" />
           </HStack>
 
           {userInformation.isLoggedIn ? (
