@@ -45,7 +45,9 @@ export function Filter({ isOpen, onClose }: Props) {
     applyFilterHandler,
     deliveryDate,
     createdAt,
-    ownerUid } = useContext(TaskContext)
+    ownerUid,
+    visualization
+  } = useContext(TaskContext)
 
   function validateForm() {
     let description = ''
@@ -78,7 +80,8 @@ export function Filter({ isOpen, onClose }: Props) {
       applyFilterHandler({
         deliveryDate: deliveryDateValue,
         createdAt: createdAtValue,
-        ownerUid: ownerUidValue
+        ownerUid: ownerUidValue,
+        visualization
       })
     }
   }

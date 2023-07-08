@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Box, Grid, HStack, Skeleton, useDisclosure } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
@@ -52,7 +52,7 @@ const cssButtonGroup = {
 }
 
 export function Home() {
-  const [activeButtonGroup, setActiveButtonGroup] = useState('all')
+  const [visualizationValue, setVisualizationValue] = useState('all')
   const [search, setSearch] = useState('')
 
   const {
@@ -72,18 +72,32 @@ export function Home() {
     tasks,
     isLoadingFetch,
     searchTaskHandler,
-    visualizationTaskHandler
+    applyFilterHandler,
+    deliveryDate,
+    createdAt,
+    ownerUid,
+    visualization
   } = useContext(TaskContext)
 
   function changeActiveButtonGroup(value: string) {
-    setActiveButtonGroup(value)
-    visualizationTaskHandler(value)
+    setVisualizationValue(value)
+
+    applyFilterHandler({
+      deliveryDate,
+      createdAt,
+      ownerUid,
+      visualization: value
+    })
   }
 
   function changeSearchTaskHandler(value: string) {
     setSearch(value)
     searchTaskHandler(value)
   }
+
+  useEffect(() => {
+    setVisualizationValue(visualization)
+  }, [])
 
   return (
     <Container mt={8}>
@@ -161,7 +175,7 @@ export function Home() {
             <ButtonGroup
               key={btn.value}
               onClick={() => changeActiveButtonGroup(btn.value)}
-              active={activeButtonGroup === btn.value}
+              active={visualizationValue === btn.value}
             >
               {btn.label}
             </ButtonGroup>
