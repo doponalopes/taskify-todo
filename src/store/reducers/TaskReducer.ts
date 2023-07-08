@@ -14,7 +14,8 @@ export const types = {
   REMOVE_SELECTED_TASK: 'TASK/REMOVE_SELECTED_TASK',
 
   SEARCH_TASK: 'TASK/SEARCH_TASK',
-  VISUALIZATION_TASK: 'TASK/VISUALIZATION_TASK'
+  VISUALIZATION_TASK: 'TASK/VISUALIZATION_TASK',
+  APPLY_FILTER: 'TASK/APPLY_FILTER'
 } as const
 
 export const INITIAL_STATE = {
@@ -23,6 +24,11 @@ export const INITIAL_STATE = {
   isLoadingFetch: true,
   isLoadingRegisterUpdate: false,
   selectTask: {} as TaskProps,
+  deliveryDate: '',
+  createdAt: '',
+  ownerUid: '',
+  researchField: '',
+  visualization: 'all'
 }
 
 export function tasksReducer(state: any, action: Action) {
@@ -73,6 +79,12 @@ export function tasksReducer(state: any, action: Action) {
         selectTask: task
       }
 
+    case types.REMOVE_SELECTED_TASK:
+      return {
+        ...state,
+        selectTask: {}
+      }
+
     case types.SEARCH_TASK:
       const filterBySearch = state.allTasks.filter((item: TaskProps) =>
         item.title.toLowerCase().includes(action.payload.toLowerCase())
@@ -103,10 +115,37 @@ export function tasksReducer(state: any, action: Action) {
         tasks: filteredByView
       }
 
-    case types.REMOVE_SELECTED_TASK:
+    case types.APPLY_FILTER:
+      let filteredList = state.allTasks
+
+      const { deliveryDate, createdAt, ownerUid } = action.payload
+
+      if (deliveryDate.toString().trim() !== '' ||
+        createdAt.toString().trim() !== '' ||
+        ownerUid !== '') {
+        filteredList = state.allTasks.filter((task: TaskProps) => {
+          if (createdAt && task.createdAt !== createdAt) {
+            return false;
+          }
+
+          if (deliveryDate && task.deliveryDate !== deliveryDate) {
+            return false;
+          }
+
+          if (ownerUid && task.ownerUid !== ownerUid) {
+            return false;
+          }
+
+          return true;
+        })
+      }
+
       return {
         ...state,
-        selectTask: {}
+        tasks: filteredList,
+        deliveryDate,
+        createdAt,
+        ownerUid
       }
 
     default:

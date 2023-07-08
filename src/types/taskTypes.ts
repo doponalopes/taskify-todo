@@ -26,7 +26,6 @@ export type TaskTypes = TaskProps & {
   onOpenRegisterUpdate: () => void;
 }
 
-
 export type RegisterUpdateTaskTypes = {
   title: string;
   text: string;
@@ -34,4 +33,12 @@ export type RegisterUpdateTaskTypes = {
   blocked: boolean;
   ownerName: string;
   ownerUid: string;
+}
+
+export type TaskFilterTypes = {
+  ownerUid?: string;
+  createdAt?: string;
+  deliveryDate?: string;
+  researchField?: string;
+  visualization: string;
 }

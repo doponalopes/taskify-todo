@@ -13,7 +13,7 @@ import {
   changeTaskStatus,
   removeTask
 } from "@services/firebase/queries";
-import { RegisterUpdateTaskTypes, TaskContextTypes } from "types/taskTypes";
+import { RegisterUpdateTaskTypes, TaskContextTypes, TaskFilterTypes } from "types/taskTypes";
 
 export const TaskContext = createContext<any>({});
 
@@ -24,7 +24,12 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     tasks,
     isLoadingFetch,
     isLoadingRegisterUpdate,
-    selectTask
+    selectTask,
+    deliveryDate,
+    createdAt,
+    ownerUid,
+    researchField,
+    visualization,
   } = tasksState
 
   useEffect(() => {
@@ -97,12 +102,21 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     dispatch({ type: types.VISUALIZATION_TASK, payload: type })
   }
 
+  function applyFilterHandler(payload: TaskFilterTypes) {
+    dispatch({ type: types.APPLY_FILTER, payload })
+  }
+
   return (
     <TaskContext.Provider value={{
       tasks,
       isLoadingFetch,
       isLoadingRegisterUpdate,
       selectTask,
+      deliveryDate,
+      createdAt,
+      ownerUid,
+      researchField,
+      visualization,
       registerNewTaskHandler,
       selectTaskToEditHandler,
       removeSelectedTaskHandler,
@@ -110,7 +124,8 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
       changeTaskStatusHandler,
       removeTaskHandler,
       searchTaskHandler,
-      visualizationTaskHandler
+      visualizationTaskHandler,
+      applyFilterHandler
     }}>
       {children}
     </TaskContext.Provider>

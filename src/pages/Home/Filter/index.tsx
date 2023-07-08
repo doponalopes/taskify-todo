@@ -1,3 +1,4 @@
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -11,8 +12,10 @@ import {
 } from "@chakra-ui/react";
 
 import { Button, InputLabel, SelectInput } from "@components";
+
 import { formatDate, validateDate } from "@utils/dataUtils";
-import { ChangeEvent, useState } from "react";
+
+import { TaskContext } from "@store/contexts/TaskContext";
 
 type Props = {
   isOpen: boolean;
@@ -22,20 +25,27 @@ type Props = {
 const data = [
   {
     label: 'Christopher Dopona Lopes',
-    value: 1,
+    value: 'JvybrK5ZpkOhmPoTyI4QMkO1ArC2',
   },
 
   {
     label: 'Maria Silva',
-    value: 2,
+    value: 'JvybrK5ZpkOhmPoTyI4QMkO1ArC3',
   }
 ]
 
 export function Filter({ isOpen, onClose }: Props) {
+  const [deliveryDateValue, setDeliveryDateValue] = useState('')
+  const [createdAtValue, setCreatedAtValue] = useState('')
+  const [ownerUidValue, setOwnerUidValue] = useState('')
+
   const toast = useToast()
 
-  const [deliveryDate, setDeliveryDate] = useState('')
-  const [creationDate, setCreationDate] = useState('')
+  const {
+    applyFilterHandler,
+    deliveryDate,
+    createdAt,
+    ownerUid } = useContext(TaskContext)
 
   function validateForm() {
     let description = ''
@@ -44,7 +54,7 @@ export function Filter({ isOpen, onClose }: Props) {
       description = 'Preencha uma Data de entrega válida!'
     }
 
-    if (creationDate && !validateDate(creationDate)) {
+    if (createdAt && !validateDate(createdAt)) {
       description = 'Preencha uma Data de criação válida!'
     }
 
@@ -63,11 +73,21 @@ export function Filter({ isOpen, onClose }: Props) {
     return true
   }
 
-  function applyFilterHandler() {
+  function addFilterHandler() {
     if (validateForm()) {
-
+      applyFilterHandler({
+        deliveryDate: deliveryDateValue,
+        createdAt: createdAtValue,
+        ownerUid: ownerUidValue
+      })
     }
   }
+
+  useEffect(() => {
+    setDeliveryDateValue(deliveryDate)
+    setCreatedAtValue(createdAt)
+    setOwnerUidValue(ownerUid)
+  }, [deliveryDate, createdAt, ownerUid])
 
   return (
     <Drawer
@@ -83,23 +103,28 @@ export function Filter({ isOpen, onClose }: Props) {
         <DrawerBody>
           <Grid templateColumns="repeat(1fr)" gap={4}>
             <InputLabel
-              value={creationDate}
+              value={createdAtValue}
               label="Data de criação"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setCreationDate(formatDate(e))}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setCreatedAtValue(formatDate(e))}
             />
             <InputLabel
-              value={deliveryDate}
+              value={deliveryDateValue}
               label="Data de entrega"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setDeliveryDate(formatDate(e))}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setDeliveryDateValue(formatDate(e))}
             />
-            <SelectInput label="Usuários" data={data} />
+            <SelectInput
+              data={data}
+              value={ownerUidValue}
+              label="Usuários"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setOwnerUidValue(e.target.value)}
+            />
           </Grid>
         </DrawerBody>
 
         <DrawerFooter>
           <Button color='gray' mr={3} onClick={onClose}>Cancelar</Button>
 
-          <Button color='blue' onClick={applyFilterHandler}>
+          <Button color='blue' onClick={addFilterHandler}>
             Aplicar filtro
           </Button>
         </DrawerFooter>
