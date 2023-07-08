@@ -163,7 +163,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
         </ModalBody>
 
         <ModalFooter>
-          <Button color='gray' mr={3} onClick={onClose}>Cancelar</Button>
+          <Button color='gray' mr={3} onClick={onCloseModalHandler}>Cancelar</Button>
 
           <Button
             color='blue'

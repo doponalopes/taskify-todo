@@ -17,10 +17,7 @@ import { formatDate, validateDate } from "@utils/dataUtils";
 
 import { TaskContext } from "@store/contexts/TaskContext";
 
-type Props = {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { FilterTaskTypes } from "types/taskTypes";
 
 const data = [
   {
@@ -34,7 +31,7 @@ const data = [
   }
 ]
 
-export function Filter({ isOpen, onClose }: Props) {
+export function Filter({ isOpen, onClose }: FilterTaskTypes) {
   const [deliveryDateValue, setDeliveryDateValue] = useState('')
   const [createdAtValue, setCreatedAtValue] = useState('')
   const [ownerUidValue, setOwnerUidValue] = useState('')
@@ -85,6 +82,8 @@ export function Filter({ isOpen, onClose }: Props) {
         visualization,
         researchField
       })
+
+      onClose()
     }
   }
 

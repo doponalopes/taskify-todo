@@ -42,3 +42,8 @@ export type TaskFilterTypes = {
   researchField?: string;
   visualization: string;
 }
+
+export type FilterTaskTypes = {
+  isOpen: boolean;
+  onClose: () => void;
+}
