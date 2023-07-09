@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 import { Avatar, Box, HStack, Heading } from '@chakra-ui/react';
-import { MdOutlineWbSunny } from 'react-icons/md'
 
 import { AuthContext } from '@store/contexts/AuthContext';
 
-import { Button, Container, IconButton } from "..";
+import { Button, Container } from "..";
 
 export function Header() {
   const { login, logout, userInformation, isLoading } = useContext(AuthContext)
@@ -19,10 +18,6 @@ export function Header() {
         <Heading color="gray.600" fontSize={24}>Taskify</Heading>
 
         <HStack gap={8}>
-          <HStack gap={6}>
-            <IconButton color="gray.100" icon={<MdOutlineWbSunny />} aria-label="Modo escuro/claro" />
-          </HStack>
-
           {userInformation.isLoggedIn ? (
             <>
               <Avatar

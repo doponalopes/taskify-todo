@@ -9,11 +9,11 @@ const maxVisibleUsers = 3;
 export function OnlineOfflineUsers() {
   const { onlineUsers, offlineUsers } = useContext(AuthContext)
 
-  const offlineUsernames = offlineUsers.map(({ name }: UsersStatusType) => name)
+  const offlineUsernames = offlineUsers.map(({ username }: UsersStatusType) => username)
   const visibleUsers = onlineUsers.slice(0, maxVisibleUsers);
   const remainingUsers = onlineUsers
     .slice(maxVisibleUsers)
-    .map(({ name }: UsersStatusType) => name);
+    .map(({ username }: UsersStatusType) => username);
 
   return (
     <HStack mr={1}>
@@ -27,15 +27,17 @@ export function OnlineOfflineUsers() {
             title={offlineUsernames.join(', ')}
           />
 
-          <Divider
-            ml={3}
-            mr={3}
-            bg="white"
-            height="3rem"
-            width="0.125rem"
-            borderColor="white"
-            orientation='vertical'
-          />
+          {onlineUsers.length > 0 && (
+            <Divider
+              ml={3}
+              mr={3}
+              bg="white"
+              height="3rem"
+              width="0.125rem"
+              borderColor="white"
+              orientation='vertical'
+            />
+          )}
         </>
       )}
 
@@ -50,11 +52,11 @@ export function OnlineOfflineUsers() {
           />
         )}
 
-        {visibleUsers.map(({ id, name }: UsersStatusType) => (
+        {visibleUsers.map(({ id, username }: UsersStatusType) => (
           <Avatar
             key={id}
-            name={name}
-            title={name}
+            name={username}
+            title={username}
             borderWidth={3}
             borderColor="white"
             mr={-2}

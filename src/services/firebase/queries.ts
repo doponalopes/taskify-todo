@@ -6,7 +6,10 @@ import {
   updateDoc,
   doc,
   deleteDoc,
-  onSnapshot
+  onSnapshot,
+  query,
+  where,
+  getDocs
 } from "firebase/firestore";
 
 import { RegisterUpdateTaskTypes, TaskProps } from "types/taskTypes";
@@ -115,8 +118,8 @@ export async function searchUsersOnlineAndOffline(callback: (users: UsersStatusT
       snapshot.forEach((doc) => {
         allUsers.push({
           id: doc.id,
-          idUser: doc.data().id,
-          name: doc.data().name,
+          userId: doc.data().userId,
+          username: doc.data().username,
           online: doc.data().online,
         });
       });
@@ -143,12 +146,44 @@ export async function changeUserOnline(id: string, online: boolean) {
   try {
     const docRef = doc(db, 'users', id);
 
-    console.log('docRef:', docRef)
-
-    await updateDoc(docRef, {
-      online
-    });
+    await updateDoc(docRef, { online });
   } catch (error) {
     console.error('Erro ao atualizar o status do documento:', error);
+  }
+}
+
+async function checkRegisteredUser(userId: string) {
+  const db = getFirestore(app);
+  const usersCol = collection(db, "users");
+
+  try {
+    const q = query(usersCol, where("userId", "==", userId));
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {
+    console.log("Ocorreu um erro ao verificar o ID:", error);
+    return false;
+  }
+}
+
+export async function registerUserAccess(data: UsersStatusType) {
+  const db = getFirestore(app);
+  const usersCol = collection(db, "users");
+  const registeredUser = await checkRegisteredUser(data.userId)
+
+  if (!registeredUser) {
+    try {
+      await addDoc(usersCol, {
+        ...data,
+      });
+    } catch (error) {
+      console.error('Erro ao registrar documento:', error);
+    }
   }
 }

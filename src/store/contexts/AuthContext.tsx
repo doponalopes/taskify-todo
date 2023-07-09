@@ -11,12 +11,17 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 
+import { auth } from '@services/firebase/config';
+
 import { INITIAL_STATE, types, authReducer } from "@store/reducers/AuthReducer";
 
 import { AuthContextTypes, UsersStatusType } from "types/authTypes";
 
-import { auth } from '@services/firebase/config';
-import { changeUserOnline, searchUsersOnlineAndOffline } from "@services/firebase/queries";
+import {
+  changeUserOnline,
+  registerUserAccess,
+  searchUsersOnlineAndOffline
+} from "@services/firebase/queries";
 
 export const AuthContext = createContext<any>({});
 
@@ -35,16 +40,52 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
 
   const userInformation = { username, userId, isLoggedIn }
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+  function login() {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then(result => {
+        const { user } = result
+
         const payload = {
-          uid: user.uid,
+          userId: user.uid,
           username: user.displayName,
           isLoggedIn: true
         }
 
         dispatch({ type: types.LOGIN, payload })
+      })
+      .catch((error) =>
+        console.log('error:', error)
+      )
+  }
+
+  function logout() {
+    changeUserOnlineOffline(userId, false)
+
+    signOut(auth)
+  }
+
+  async function changeUserOnlineOffline(userId: string, isLoggedIn: boolean) {
+    const uidUser = allUsers.filter(({ userId: id }: UsersStatusType) => id === userId)[0]?.id
+
+    if (uidUser) {
+      await changeUserOnline(uidUser, isLoggedIn)
+    }
+  }
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const payload = {
+          userId: user.uid,
+          username: user.displayName,
+          isLoggedIn: true
+        }
+
+        changeUserOnlineOffline(user.uid, true)
+        dispatch({ type: types.LOGIN, payload })
+
       } else {
         dispatch({ type: types.LOGOUT })
       }
@@ -56,20 +97,20 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
   }, []);
 
   useEffect(() => {
-    console.log('logged', authState.isLoggedIn)
+    async function registerUser() {
+      const params = {
+        userId,
+        username,
+        online: true
+      }
 
-    // async function changeUserOnlineOffline() {
-    //   const uidUser = allUsers.filter(({ idUser }: UsersStatusType) => idUser === authState.uid)[0]?.id
+      await registerUserAccess(params)
+    }
 
-    //   if (uidUser) {
-    //     await changeUserOnline(uidUser, authState.isLoggedIn)
-    //   }
-    // }
-
-    // changeUserOnlineOffline()
-
-  }, [authState.isLoggedIn, authState.uid])
-
+    if (userId) {
+      registerUser()
+    }
+  }, [userId])
 
   useEffect(() => {
     async function getUsersOnlineAndOffline() {
@@ -84,29 +125,6 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
     getUsersOnlineAndOffline()
   }, [])
 
-  function login() {
-    const provider = new GoogleAuthProvider();
-
-    signInWithPopup(auth, provider)
-      .then(result => {
-        const { user } = result
-
-        const payload = {
-          uid: user.uid,
-          username: user.displayName,
-          isLoggedIn: true
-        }
-
-        dispatch({ type: types.LOGIN, payload })
-      })
-      .catch((error) =>
-        console.log('error:', error)
-      )
-  }
-
-  function logout() {
-    signOut(auth)
-  }
 
   return (
     <AuthContext.Provider value={{

@@ -15,6 +15,7 @@ import {
 } from "@components";
 
 import { TaskContext } from "@store/contexts/TaskContext";
+import { AuthContext } from "@store/contexts/AuthContext";
 
 import { TaskProps } from "types/taskTypes";
 
@@ -79,6 +80,8 @@ export function Home() {
     visualization,
     researchField
   } = useContext(TaskContext)
+
+  const { userInformation } = useContext(AuthContext)
 
   function changeActiveButtonGroup(value: string) {
     setVisualizationValue(value)
@@ -159,6 +162,7 @@ export function Home() {
               color='blue'
               fontWeight="medium"
               onClick={onOpenRegisterUpdate}
+              isDisabled={!userInformation.isLoggedIn}
             >
               Nova tarefa
             </Button>

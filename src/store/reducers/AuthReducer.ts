@@ -25,7 +25,10 @@ export function authReducer(state = INITIAL_STATE, action: Action) {
 
     case types.LOGOUT:
       return {
-        ...INITIAL_STATE
+        ...state,
+        username: '',
+        userId: '',
+        isLoggedIn: false,
       }
 
     case types.SEARCH_USERS_ONLINE_AND_OFFLINE:
