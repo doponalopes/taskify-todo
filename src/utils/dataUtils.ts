@@ -13,17 +13,21 @@ export const formatDate = (event: ChangeEvent<HTMLInputElement>): string => {
   return formattedValue
 };
 
-export function convertDateToTimestamp(dataString: string): Timestamp {
-  const [day, month, year] = dataString.split('/');
+export function convertDateToTimestamp(value: string): Timestamp {
+  const [day, month, year] = value.split('/');
   const date = new Date(Number(year), Number(month) - 1, Number(day));
 
   return Timestamp.fromDate(date);
 }
 
 export function validateDate(value: string): boolean {
-  const date = new Date(value);
+  const [day, month, year] = value.split('/');
 
-  return date instanceof Date && !isNaN(date.getTime());
+  const date = new Date(`${month}/${day}/${year}`);
+
+  return (
+    date instanceof Date && !isNaN(date.getTime()) && date.getDate() === Number(day)
+  );
 }
 
 function formatDayAndMonth(value: number) {
