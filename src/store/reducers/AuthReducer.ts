@@ -8,7 +8,7 @@ export const types = {
 
 export const INITIAL_STATE = {
   username: '',
-  uid: '',
+  userId: '',
   isLoggedIn: false,
   onlineUsers: [],
   offlineUsers: [],

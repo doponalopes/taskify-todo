@@ -96,7 +96,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
         deliveryDate: convertDateToTimestamp(deliveryDate),
         blocked,
         ownerName: userInformation.username,
-        ownerUid: userInformation.uid,
+        ownerUid: userInformation.userId,
       }
 
       try {

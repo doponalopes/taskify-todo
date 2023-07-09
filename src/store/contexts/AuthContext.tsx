@@ -24,7 +24,16 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
   const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE)
   const [isLoading, setIsLoading] = useState(true);
 
-  const { onlineUsers, offlineUsers, allUsers } = authState
+  const {
+    onlineUsers,
+    offlineUsers,
+    allUsers,
+    username,
+    userId,
+    isLoggedIn
+  } = authState
+
+  const userInformation = { username, userId, isLoggedIn }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -47,15 +56,17 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
   }, []);
 
   useEffect(() => {
-    async function changeUserOnlineOffline() {
-      const uidUser = allUsers.filter(({ idUser }: UsersStatusType) => idUser === authState.uid)[0]?.id
+    console.log('logged', authState.isLoggedIn)
 
-      if (uidUser) {
-        await changeUserOnline(uidUser, authState.isLoggedIn)
-      }
-    }
+    // async function changeUserOnlineOffline() {
+    //   const uidUser = allUsers.filter(({ idUser }: UsersStatusType) => idUser === authState.uid)[0]?.id
 
-    changeUserOnlineOffline()
+    //   if (uidUser) {
+    //     await changeUserOnline(uidUser, authState.isLoggedIn)
+    //   }
+    // }
+
+    // changeUserOnlineOffline()
 
   }, [authState.isLoggedIn, authState.uid])
 
@@ -63,9 +74,10 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
   useEffect(() => {
     async function getUsersOnlineAndOffline() {
       await searchUsersOnlineAndOffline(response => {
-        console.log('rsponse', response)
-
-        dispatch({ type: types.SEARCH_USERS_ONLINE_AND_OFFLINE, payload: response })
+        dispatch({
+          type: types.SEARCH_USERS_ONLINE_AND_OFFLINE,
+          payload: response
+        })
       })
     }
 
@@ -100,7 +112,7 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
     <AuthContext.Provider value={{
       login,
       logout,
-      userInformation: authState,
+      userInformation,
       onlineUsers,
       offlineUsers,
       allUsers,

@@ -39,7 +39,7 @@ export function Task({
   const variantBadge = completed ? 'green' : 'orange'
   const statusText = completed ? 'Concluída' : 'Em andamento'
   const statusButton = completed ? 'Voltar para em andamento' : 'Concluir tarefa'
-  const canChange = blocked && ownerUid !== userInformation.uid ? false : true
+  const canChange = blocked && ownerUid !== userInformation.userId ? false : true
   const isBlocked = blocked ? <MdLockOutline size={24} /> : <MdOutlineLockOpen size={24} />
 
   function editTaskHandler() {
