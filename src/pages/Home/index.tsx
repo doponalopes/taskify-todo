@@ -45,14 +45,6 @@ const buttonGroup = [
   }
 ]
 
-const cssButtonGroup = {
-  '::-webkit-scrollbar': {
-    display: 'none',
-  },
-  '-ms-overflow-style': 'none',
-  scrollbarWidth: 'none',
-}
-
 export function Home() {
   const [visualizationValue, setVisualizationValue] = useState('all')
   const [searchValue, setSearchValue] = useState('')
@@ -206,7 +198,13 @@ export function Home() {
           Listagem de tarefas
         </Text>
 
-        <Box overflowX="auto" whiteSpace="nowrap" css={cssButtonGroup}>
+        <Box overflowX="auto" whiteSpace="nowrap" css={{
+          '::-webkit-scrollbar': {
+            display: 'none',
+          },
+          '-ms-overflow-style': 'none',
+          scrollbarWidth: 'none',
+        }}>
           {buttonGroup.map((btn) => (
             <ButtonGroup
               key={btn.value}
