@@ -1,5 +1,6 @@
 import {
   createContext,
+  useContext,
   useEffect,
   useReducer,
   useState
@@ -21,13 +22,16 @@ import {
   changeUserOnline,
   registerUserAccess,
   searchUsersOnlineAndOffline
-} from "@services/firebase/queries";
+} from "@services/firebase/queries/user";
+import { ErrorContext } from "./ErrorContext";
 
 export const AuthContext = createContext<any>({});
 
 export function AuthContextProvider({ children }: AuthContextTypes) {
   const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE)
   const [isLoading, setIsLoading] = useState(true);
+
+  const { changeError } = useContext(ErrorContext)
 
   const {
     onlineUsers,
@@ -40,24 +44,22 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
 
   const userInformation = { username, userId, isLoggedIn }
 
-  function login() {
-    const provider = new GoogleAuthProvider();
+  async function login() {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const { user } = result;
 
-    signInWithPopup(auth, provider)
-      .then(result => {
-        const { user } = result
+      const payload = {
+        userId: user.uid,
+        username: user.displayName,
+        isLoggedIn: true
+      };
 
-        const payload = {
-          userId: user.uid,
-          username: user.displayName,
-          isLoggedIn: true
-        }
-
-        dispatch({ type: types.LOGIN, payload })
-      })
-      .catch((error) =>
-        console.log('error:', error)
-      )
+      dispatch({ type: types.LOGIN, payload });
+    } catch (error) {
+      changeError(error)
+    }
   }
 
   function logout() {
@@ -137,6 +139,6 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
       isLoading,
     }}>
       {children}
-    </AuthContext.Provider >
+    </AuthContext.Provider>
   )
 }

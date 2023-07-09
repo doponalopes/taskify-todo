@@ -1,8 +1,10 @@
 import {
   createContext,
+  useContext,
   useEffect,
   useReducer
 } from "react";
+import { RegisterUpdateTaskTypes, TaskContextTypes, TaskFilterTypes } from "types/taskTypes";
 
 import { INITIAL_STATE, tasksReducer, types } from "@store/reducers/TaskReducer";
 
@@ -12,13 +14,16 @@ import {
   fetchAllTask,
   changeTaskStatus,
   removeTask
-} from "@services/firebase/queries";
-import { RegisterUpdateTaskTypes, TaskContextTypes, TaskFilterTypes } from "types/taskTypes";
+} from "@services/firebase/queries/tasks";
+import { ErrorContext } from "./ErrorContext";
 
 export const TaskContext = createContext<any>({});
 
 export function TaskContextProvider({ children }: TaskContextTypes) {
   const [tasksState, dispatch] = useReducer(tasksReducer, INITIAL_STATE)
+
+  const { changeError } = useContext(ErrorContext)
+
 
   const {
     tasks,
@@ -50,7 +55,7 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     try {
       await createTask(data)
     } catch (error) {
-
+      changeError(error)
     } finally {
       dispatch({ type: types.SUCCESS_REGISTER_NEW_TASK })
     }
@@ -70,7 +75,7 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     try {
       await updateTask(id, data)
     } catch (error) {
-
+      changeError(error)
     } finally {
       dispatch({ type: types.SUCCESS_UPDATE_TASK })
     }
@@ -80,8 +85,7 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     try {
       await changeTaskStatus(id, data)
     } catch (error) {
-
-    } finally {
+      changeError(error)
     }
   }
 
@@ -89,8 +93,7 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     try {
       await removeTask(id)
     } catch (error) {
-
-    } finally {
+      changeError(error)
     }
   }
 

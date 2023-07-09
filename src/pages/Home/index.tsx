@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
-import { Box, Grid, HStack, Skeleton, useDisclosure } from "@chakra-ui/react";
+import { Box, Grid, HStack, Skeleton, useDisclosure, useToast } from "@chakra-ui/react";
 import { MdFilterList } from "react-icons/md";
 import { Text } from '@chakra-ui/react'
 
@@ -16,6 +16,7 @@ import {
 
 import { TaskContext } from "@store/contexts/TaskContext";
 import { AuthContext } from "@store/contexts/AuthContext";
+import { ErrorContext } from "@store/contexts/ErrorContext";
 
 import { TaskProps } from "types/taskTypes";
 
@@ -56,6 +57,8 @@ export function Home() {
   const [visualizationValue, setVisualizationValue] = useState('all')
   const [searchValue, setSearchValue] = useState('')
 
+  const toast = useToast();
+
   const {
     isOpen: isOpenRegisterUpdate,
     onOpen: onOpenRegisterUpdate,
@@ -80,6 +83,8 @@ export function Home() {
     visualization,
     researchField
   } = useContext(TaskContext)
+
+  const { error, changeError } = useContext(ErrorContext)
 
   const { userInformation } = useContext(AuthContext)
 
@@ -111,6 +116,23 @@ export function Home() {
     setSearchValue(researchField)
     setVisualizationValue(visualization)
   }, [researchField, visualization])
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: 'Erro',
+        description: error.message,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right'
+      });
+
+      setTimeout(() => {
+        changeError('')
+      }, 5000);
+    }
+  }, [toast, error])
 
   return (
     <Container mt={8}>

@@ -22,6 +22,7 @@ import { convertDateToTimestamp, formatDate, validateDate } from "@utils/dataUti
 
 import { TaskContext } from "@store/contexts/TaskContext";
 import { AuthContext } from "@store/contexts/AuthContext";
+import { ErrorContext } from "@store/contexts/ErrorContext";
 
 type RegisterAndUpdateProps = {
   isOpen: boolean;
@@ -30,6 +31,7 @@ type RegisterAndUpdateProps = {
 
 export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
   const { userInformation } = useContext(AuthContext)
+  const { changeError } = useContext(ErrorContext)
   const toast = useToast()
 
   const [title, setTitle] = useState('')
@@ -108,9 +110,8 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
 
         onCloseModalHandler()
       } catch (error) {
-
+        changeError(error)
       }
-
     }
   }
 
