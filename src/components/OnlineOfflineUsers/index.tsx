@@ -1,72 +1,56 @@
+import { useContext } from "react";
 import { Avatar, Divider, HStack } from "@chakra-ui/react";
 
-const userOnline = [
-  {
-    id: 1,
-    name: 'Christopher Dopona Lopes'
-  },
-
-  {
-    id: 2,
-    name: 'Marta da Silva'
-  },
-
-  {
-    id: 3,
-    name: 'Lucas Matheus'
-  },
-
-  {
-    id: 4,
-    name: 'Silvana Martins'
-  },
-
-  {
-    id: 5,
-    name: 'Claudia da Rocha'
-  }
-]
-
-const userOffline = [
-  'Carlos Porto',
-  'João Pedro'
-]
+import { AuthContext } from "@store/contexts/AuthContext";
+import { UsersStatusType } from "types/authTypes";
 
 const maxVisibleUsers = 3;
 
 export function OnlineOfflineUsers() {
-  const visibleUsers = userOnline.slice(0, maxVisibleUsers);
-  const remainingUsers = userOnline.slice(maxVisibleUsers).map(({ name }) => name);
+  const { onlineUsers, offlineUsers } = useContext(AuthContext)
+
+  const offlineUsernames = offlineUsers.map(({ name }: UsersStatusType) => name)
+  const visibleUsers = onlineUsers.slice(0, maxVisibleUsers);
+  const remainingUsers = onlineUsers
+    .slice(maxVisibleUsers)
+    .map(({ name }: UsersStatusType) => name);
 
   return (
     <HStack mr={1}>
-      <Avatar
-        name="O f"
-        bg="gray.400"
-        borderWidth={3}
-        borderColor="white"
-        title={userOffline.join(', ')}
-      />
-      <Divider
-        ml={3}
-        mr={3}
-        bg="white"
-        height="3rem"
-        width="0.125rem"
-        borderColor="white"
-        orientation='vertical'
-      />
+      {offlineUsers.length > 0 && (
+        <>
+          <Avatar
+            name="O f"
+            bg="gray.400"
+            borderWidth={3}
+            borderColor="white"
+            title={offlineUsernames.join(', ')}
+          />
+
+          <Divider
+            ml={3}
+            mr={3}
+            bg="white"
+            height="3rem"
+            width="0.125rem"
+            borderColor="white"
+            orientation='vertical'
+          />
+        </>
+      )}
 
       <HStack gap={0}>
-        <Avatar
-          mr={-2}
-          borderWidth={3}
-          borderColor="white"
-          title={remainingUsers.join(', ')}
-          name={`+ ${remainingUsers.length}`}
-        />
+        {remainingUsers.length > 0 && (
+          <Avatar
+            mr={-2}
+            borderWidth={3}
+            borderColor="white"
+            title={remainingUsers.join(', ')}
+            name={`+ ${remainingUsers.length}`}
+          />
+        )}
 
-        {visibleUsers.map(({ id, name }) => (
+        {visibleUsers.map(({ id, name }: UsersStatusType) => (
           <Avatar
             key={id}
             name={name}

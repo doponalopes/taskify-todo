@@ -14,6 +14,7 @@ import { RegisterUpdateTaskTypes, TaskProps } from "types/taskTypes";
 import { app } from "./config";
 
 import { convertTimestampToDate } from "@utils/dataUtils";
+import { UsersStatusType } from "types/authTypes";
 
 export async function fetchAllTask(callback: (tasks: TaskProps[]) => void) {
   const db = getFirestore(app);
@@ -100,5 +101,32 @@ export async function removeTask(id: string) {
     await deleteDoc(docRef);
   } catch (error) {
     console.error('Erro ao remover o documento:', error);
+  }
+}
+
+export async function searchUsersOnlineAndOffline(callback: (users: UsersStatusType[]) => void) {
+  const db = getFirestore(app);
+  const usersCol = collection(db, "users");
+
+  try {
+    const unsubscribe = onSnapshot(usersCol, async (snapshot) => {
+      const allUsers: UsersStatusType[] = [];
+
+      snapshot.forEach((doc) => {
+        allUsers.push({
+          id: doc.id,
+          name: doc.data().name,
+          online: doc.data().online,
+        });
+      });
+
+      callback(allUsers);
+    });
+
+    return unsubscribe;
+
+  } catch (error) {
+    console.error("Erro ao obter dados da coleção:", error);
+    throw error;
   }
 }

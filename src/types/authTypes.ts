@@ -10,3 +10,9 @@ export type Action = {
 export type AuthContextTypes = {
   children: ReactNode
 }
+
+export type UsersStatusType = {
+  id: string;
+  name: string;
+  online: boolean;
+}
