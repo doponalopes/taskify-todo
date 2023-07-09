@@ -24,7 +24,6 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
 
   const { changeError } = useContext(ErrorContext)
 
-
   const {
     tasks,
     isLoadingFetch,
@@ -97,14 +96,6 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
     }
   }
 
-  function searchTaskHandler(text: string) {
-    dispatch({ type: types.SEARCH_TASK, payload: text })
-  }
-
-  function visualizationTaskHandler(type: string) {
-    dispatch({ type: types.VISUALIZATION_TASK, payload: type })
-  }
-
   function applyFilterHandler(payload: TaskFilterTypes) {
     dispatch({ type: types.APPLY_FILTER, payload })
   }
@@ -126,8 +117,6 @@ export function TaskContextProvider({ children }: TaskContextTypes) {
       updateTaskHandler,
       changeTaskStatusHandler,
       removeTaskHandler,
-      searchTaskHandler,
-      visualizationTaskHandler,
       applyFilterHandler
     }}>
       {children}

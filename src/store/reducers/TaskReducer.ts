@@ -13,8 +13,6 @@ export const types = {
   SELECT_TASK_TO_EDIT: 'TASK/SELECT_TASK_TO_EDIT',
   REMOVE_SELECTED_TASK: 'TASK/REMOVE_SELECTED_TASK',
 
-  SEARCH_TASK: 'TASK/SEARCH_TASK',
-  VISUALIZATION_TASK: 'TASK/VISUALIZATION_TASK',
   APPLY_FILTER: 'TASK/APPLY_FILTER'
 } as const
 
@@ -83,36 +81,6 @@ export function tasksReducer(state: any, action: Action) {
       return {
         ...state,
         selectTask: {}
-      }
-
-    case types.SEARCH_TASK:
-      const filterBySearch = state.allTasks.filter((item: TaskProps) =>
-        item.title.toLowerCase().includes(action.payload.toLowerCase())
-      );
-
-      return {
-        ...state,
-        tasks: filterBySearch
-      }
-
-    case types.VISUALIZATION_TASK:
-      let filteredByView = state.allTasks
-
-      if (action.payload === 'inProgress') {
-        filteredByView = state.allTasks.filter((item: TaskProps) => !item.completed);
-      }
-
-      if (action.payload === 'completed') {
-        filteredByView = state.allTasks.filter((item: TaskProps) => item.completed);
-      }
-
-      if (action.payload === 'blocked') {
-        filteredByView = state.allTasks.filter((item: TaskProps) => item.blocked);
-      }
-
-      return {
-        ...state,
-        tasks: filteredByView
       }
 
     case types.APPLY_FILTER:
