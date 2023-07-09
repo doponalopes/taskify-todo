@@ -24,7 +24,7 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
   const [authState, dispatch] = useReducer(authReducer, INITIAL_STATE)
   const [isLoading, setIsLoading] = useState(true);
 
-  const { onlineUsers, offlineUsers } = authState
+  const { onlineUsers, offlineUsers, allUsers } = authState
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -88,6 +88,7 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
       userInformation: authState,
       onlineUsers,
       offlineUsers,
+      allUsers,
       isLoading,
     }}>
       {children}

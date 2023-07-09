@@ -16,20 +16,10 @@ import { Button, InputLabel, SelectInput } from "@components";
 import { formatDate, validateDate } from "@utils/dataUtils";
 
 import { TaskContext } from "@store/contexts/TaskContext";
+import { AuthContext } from "@store/contexts/AuthContext";
 
 import { FilterTaskTypes } from "types/taskTypes";
-
-const data = [
-  {
-    label: 'Christopher Dopona Lopes',
-    value: 'JvybrK5ZpkOhmPoTyI4QMkO1ArC2',
-  },
-
-  {
-    label: 'Maria Silva',
-    value: 'JvybrK5ZpkOhmPoTyI4QMkO1ArC3',
-  }
-]
+import { UsersStatusType } from "types/authTypes";
 
 export function Filter({ isOpen, onClose }: FilterTaskTypes) {
   const [deliveryDateValue, setDeliveryDateValue] = useState('')
@@ -46,6 +36,13 @@ export function Filter({ isOpen, onClose }: FilterTaskTypes) {
     visualization,
     researchField
   } = useContext(TaskContext)
+
+  const { allUsers } = useContext(AuthContext)
+
+  const allUsersFormatted = allUsers.map(({ id, name }: UsersStatusType) => ({
+    label: name,
+    value: id
+  }))
 
   function validateForm() {
     let description = ''
@@ -112,14 +109,14 @@ export function Filter({ isOpen, onClose }: FilterTaskTypes) {
               onChange={(e: ChangeEvent<HTMLInputElement>) => setCreatedAtValue(formatDate(e))}
             />
             <InputLabel
-              value={deliveryDateValue}
               label="Data de entrega"
+              value={deliveryDateValue}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setDeliveryDateValue(formatDate(e))}
             />
             <SelectInput
-              data={data}
-              value={ownerUidValue}
               label="Usuários"
+              value={ownerUidValue}
+              data={allUsersFormatted}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setOwnerUidValue(e.target.value)}
             />
           </Grid>

@@ -11,7 +11,8 @@ export const INITIAL_STATE = {
   uid: '',
   isLoggedIn: false,
   onlineUsers: [],
-  offlineUsers: []
+  offlineUsers: [],
+  allUsers: []
 }
 
 export function authReducer(state = INITIAL_STATE, action: Action) {
@@ -28,13 +29,16 @@ export function authReducer(state = INITIAL_STATE, action: Action) {
       }
 
     case types.SEARCH_USERS_ONLINE_AND_OFFLINE:
-      const onlineUsers = action.payload.filter((user: UsersStatusType) => user.online)
-      const offlineUsers = action.payload.filter((user: UsersStatusType) => !user.online)
+      const allUsers = action.payload
+
+      const onlineUsers = allUsers.filter((user: UsersStatusType) => user.online)
+      const offlineUsers = allUsers.filter((user: UsersStatusType) => !user.online)
 
       return {
         ...state,
         onlineUsers,
-        offlineUsers
+        offlineUsers,
+        allUsers
       }
 
     default:

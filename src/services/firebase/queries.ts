@@ -114,7 +114,7 @@ export async function searchUsersOnlineAndOffline(callback: (users: UsersStatusT
 
       snapshot.forEach((doc) => {
         allUsers.push({
-          id: doc.id,
+          id: doc.data().id,
           name: doc.data().name,
           online: doc.data().online,
         });
