@@ -24,12 +24,9 @@ import { TaskContext } from "@store/contexts/TaskContext";
 import { AuthContext } from "@store/contexts/AuthContext";
 import { ErrorContext } from "@store/contexts/ErrorContext";
 
-type RegisterAndUpdateProps = {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { RegisterAndUpdateTaskProps } from "types/registerAndUpdateTaskTypes";
 
-export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateProps) {
+export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateTaskProps) {
   const { userInformation } = useContext(AuthContext)
   const { changeError } = useContext(ErrorContext)
   const toast = useToast()
