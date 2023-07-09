@@ -13,6 +13,7 @@ export type AuthContextTypes = {
 
 export type UsersStatusType = {
   id: string;
+  idUser: string;
   name: string;
   online: boolean;
 }

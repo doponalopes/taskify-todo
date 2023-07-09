@@ -39,9 +39,9 @@ export function Filter({ isOpen, onClose }: FilterTaskTypes) {
 
   const { allUsers } = useContext(AuthContext)
 
-  const allUsersFormatted = allUsers.map(({ id, name }: UsersStatusType) => ({
+  const allUsersFormatted = allUsers.map(({ idUser, name }: UsersStatusType) => ({
     label: name,
-    value: id
+    value: idUser
   }))
 
   function validateForm() {

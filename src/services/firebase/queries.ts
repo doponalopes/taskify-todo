@@ -114,7 +114,8 @@ export async function searchUsersOnlineAndOffline(callback: (users: UsersStatusT
 
       snapshot.forEach((doc) => {
         allUsers.push({
-          id: doc.data().id,
+          id: doc.id,
+          idUser: doc.data().id,
           name: doc.data().name,
           online: doc.data().online,
         });
@@ -128,5 +129,26 @@ export async function searchUsersOnlineAndOffline(callback: (users: UsersStatusT
   } catch (error) {
     console.error("Erro ao obter dados da coleção:", error);
     throw error;
+  }
+}
+
+export async function changeUserOnline(id: string, online: boolean) {
+  const db = getFirestore(app);
+
+  console.log({
+    id,
+    online
+  })
+
+  try {
+    const docRef = doc(db, 'users', id);
+
+    console.log('docRef:', docRef)
+
+    await updateDoc(docRef, {
+      online
+    });
+  } catch (error) {
+    console.error('Erro ao atualizar o status do documento:', error);
   }
 }

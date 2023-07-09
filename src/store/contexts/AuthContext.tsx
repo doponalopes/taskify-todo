@@ -13,10 +13,10 @@ import {
 
 import { INITIAL_STATE, types, authReducer } from "@store/reducers/AuthReducer";
 
-import { AuthContextTypes } from "types/authTypes";
+import { AuthContextTypes, UsersStatusType } from "types/authTypes";
 
 import { auth } from '@services/firebase/config';
-import { searchUsersOnlineAndOffline } from "@services/firebase/queries";
+import { changeUserOnline, searchUsersOnlineAndOffline } from "@services/firebase/queries";
 
 export const AuthContext = createContext<any>({});
 
@@ -46,10 +46,25 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    async function changeUserOnlineOffline() {
+      const uidUser = allUsers.filter(({ idUser }: UsersStatusType) => idUser === authState.uid)[0]?.id
+
+      if (uidUser) {
+        await changeUserOnline(uidUser, authState.isLoggedIn)
+      }
+    }
+
+    changeUserOnlineOffline()
+
+  }, [authState.isLoggedIn, authState.uid])
+
 
   useEffect(() => {
     async function getUsersOnlineAndOffline() {
       await searchUsersOnlineAndOffline(response => {
+        console.log('rsponse', response)
+
         dispatch({ type: types.SEARCH_USERS_ONLINE_AND_OFFLINE, payload: response })
       })
     }
