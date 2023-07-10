@@ -67,7 +67,6 @@ export function Home() {
   const {
     tasks,
     isLoadingFetch,
-    searchTaskHandler,
     applyFilterHandler,
     deliveryDate,
     createdAt,
