@@ -128,12 +128,22 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateTaskProp
         <ModalHeader fontWeight="medium">{modalTile} tarefa</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+            }}
+            gap={4}
+          >
             <InputLabel
               isRequired
               label="Título"
               value={title}
               onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+              gridColumn={{
+                base: "1 / 3",
+                md: "1 / 2"
+              }}
             />
 
             <InputLabel
@@ -141,6 +151,10 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateTaskProp
               value={deliveryDate}
               label="Data de entrega"
               onChange={(e: ChangeEvent<HTMLInputElement>) => setDeliveryDate(formatDate(e))}
+              gridColumn={{
+                base: "1 / 3",
+                md: "2 / 3"
+              }}
             />
 
             <Textarea
