@@ -4,7 +4,7 @@ import Logo from "assets/task-file.svg";
 
 export function NoRegistry() {
   return (
-    <VStack mt={20}>
+    <VStack mt={20} mb={20}>
       <img src={Logo} alt="Your SVG" />
 
       <VStack mt={8} color="gray.400">
