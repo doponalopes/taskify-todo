@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Avatar, Divider, HStack } from "@chakra-ui/react";
 
-import { AuthContext } from "@store/contexts/AuthContext";
+import { AuthContext } from "store/contexts/AuthContext";
 import { UsersStatusType } from "types/authTypes";
 
 const maxVisibleUsers = 3;

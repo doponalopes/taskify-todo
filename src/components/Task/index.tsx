@@ -18,8 +18,8 @@ import {
 
 import { TaskTypes } from "types/taskTypes";
 
-import { TaskContext } from "@store/contexts/TaskContext";
-import { AuthContext } from "@store/contexts/AuthContext";
+import { TaskContext } from "store/contexts/TaskContext";
+import { AuthContext } from "store/contexts/AuthContext";
 
 import { IconButton, Badge } from "..";
 

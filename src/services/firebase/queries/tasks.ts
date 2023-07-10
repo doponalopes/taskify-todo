@@ -13,7 +13,7 @@ import { app } from "../config";
 
 import { RegisterUpdateTaskTypes, TaskProps } from "types/taskTypes";
 
-import { convertTimestampToDate } from "@utils/dataUtils";
+import { convertTimestampToDate } from "utils/dataUtils";
 
 export async function fetchAllTask(callback: (tasks: TaskProps[]) => void) {
   const db = getFirestore(app);

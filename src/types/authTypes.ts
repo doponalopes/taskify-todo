@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { types } from "@store/reducers/AuthReducer";
+import { types } from "store/reducers/AuthReducer";
 
 export type Action = {
   type: typeof types[keyof typeof types];

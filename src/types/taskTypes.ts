@@ -1,5 +1,6 @@
-import { types } from "@store/reducers/TaskReducer";
 import { ReactNode } from "react";
+
+import { types } from "store/reducers/TaskReducer";
 
 export type TaskProps = {
   id: string;
@@ -7,8 +8,8 @@ export type TaskProps = {
   text: string;
   ownerName: string;
   ownerUid: string;
-  createdAt: string;
-  deliveryDate: string;
+  createdAt?: string;
+  deliveryDate?: string;
   blocked: boolean;
   completed: boolean;
 }

@@ -12,11 +12,11 @@ import {
   OnlineOfflineUsers,
   NoRegistry,
   Task
-} from "@components";
+} from "components";
 
-import { TaskContext } from "@store/contexts/TaskContext";
-import { AuthContext } from "@store/contexts/AuthContext";
-import { ErrorContext } from "@store/contexts/ErrorContext";
+import { TaskContext } from "store/contexts/TaskContext";
+import { AuthContext } from "store/contexts/AuthContext";
+import { ErrorContext } from "store/contexts/ErrorContext";
 
 import { TaskProps } from "types/taskTypes";
 

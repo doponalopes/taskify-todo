@@ -12,9 +12,9 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 
-import { auth } from '@services/firebase/config';
+import { auth } from 'services/firebase/config';
 
-import { INITIAL_STATE, types, authReducer } from "@store/reducers/AuthReducer";
+import { INITIAL_STATE, types, authReducer } from "store/reducers/AuthReducer";
 
 import { AuthContextTypes, UsersStatusType } from "types/authTypes";
 
@@ -22,7 +22,7 @@ import {
   changeUserOnline,
   registerUserAccess,
   searchUsersOnlineAndOffline
-} from "@services/firebase/queries/user";
+} from "services/firebase/queries/user";
 import { ErrorContext } from "./ErrorContext";
 
 export const AuthContext = createContext<any>({});

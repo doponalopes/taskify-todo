@@ -6,7 +6,7 @@ import {
 } from "react";
 import { RegisterUpdateTaskTypes, TaskContextTypes, TaskFilterTypes } from "types/taskTypes";
 
-import { INITIAL_STATE, tasksReducer, types } from "@store/reducers/TaskReducer";
+import { INITIAL_STATE, tasksReducer, types } from "store/reducers/TaskReducer";
 
 import {
   createTask,
@@ -14,7 +14,7 @@ import {
   fetchAllTask,
   changeTaskStatus,
   removeTask
-} from "@services/firebase/queries/tasks";
+} from "services/firebase/queries/tasks";
 import { ErrorContext } from "./ErrorContext";
 
 export const TaskContext = createContext<any>({});

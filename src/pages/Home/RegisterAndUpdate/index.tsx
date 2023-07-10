@@ -16,13 +16,13 @@ import {
   Checkbox,
   InputLabel,
   Textarea
-} from '@components'
+} from 'components'
 
-import { convertDateToTimestamp, formatDate, validateDate } from "@utils/dataUtils";
+import { convertDateToTimestamp, formatDate, validateDate } from "utils/dataUtils";
 
-import { TaskContext } from "@store/contexts/TaskContext";
-import { AuthContext } from "@store/contexts/AuthContext";
-import { ErrorContext } from "@store/contexts/ErrorContext";
+import { TaskContext } from "store/contexts/TaskContext";
+import { AuthContext } from "store/contexts/AuthContext";
+import { ErrorContext } from "store/contexts/ErrorContext";
 
 import { RegisterAndUpdateTaskProps } from "types/registerAndUpdateTaskTypes";
 
@@ -148,7 +148,7 @@ export function RegisterAndUpdate({ isOpen, onClose }: RegisterAndUpdateTaskProp
               label="Detalhes"
               value={text}
               gridColumn="1 / 3"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+              onChange={(e) => setText(e.target.value)}
             />
 
             <Checkbox

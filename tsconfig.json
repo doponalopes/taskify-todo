@@ -23,28 +23,28 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src",
     "paths": {
-      "@assets/*": [
+      "assets/*": [
         "assets/*"
       ],
-      "@components/*": [
+      "components/*": [
         "components/*"
       ],
-      "@pages/*": [
+      "pages/*": [
         "pages/*"
       ],
-      "@services/*": [
+      "services/*": [
         "services/*"
       ],
-      "@store/*": [
+      "store/*": [
         "store/*"
       ],
-      "@styles/*": [
+      "styles/*": [
         "styles/*"
       ],
-      "@types/*": [
-        "@types/*"
+      "types/*": [
+        "types/*"
       ],
-      "@utils/*": [
+      "utils/*": [
         "utils/*"
       ],
     }

@@ -11,12 +11,12 @@ import {
   useToast
 } from "@chakra-ui/react";
 
-import { Button, InputLabel, SelectInput } from "@components";
+import { Button, InputLabel, SelectInput } from "components";
 
-import { formatDate, validateDate } from "@utils/dataUtils";
+import { formatDate, validateDate } from "utils/dataUtils";
 
-import { TaskContext } from "@store/contexts/TaskContext";
-import { AuthContext } from "@store/contexts/AuthContext";
+import { TaskContext } from "store/contexts/TaskContext";
+import { AuthContext } from "store/contexts/AuthContext";
 
 import { FilterTaskTypes } from "types/taskTypes";
 import { UsersStatusType } from "types/authTypes";
@@ -117,7 +117,7 @@ export function Filter({ isOpen, onClose }: FilterTaskTypes) {
               label="Usuários"
               value={ownerUidValue}
               data={allUsersFormatted}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setOwnerUidValue(e.target.value)}
+              onChange={(e) => setOwnerUidValue(e.target.value)}
             />
           </Grid>
         </DrawerBody>
