@@ -148,7 +148,7 @@ export function Home() {
         justifyContent="space-between"
         flexDirection={{ base: "column", md: "row" }}
       >
-        <Box flex={1} width="100%" mb={{ base: 8 }}>
+        <Box flex={1} width="100%" mb={{ base: 8, md: 0 }}>
           <InputSearch
             value={searchValue}
             onChange={(e: ChangeEvent<HTMLInputElement>) => changeSearchTaskHandler(e.target.value)} />
