@@ -56,14 +56,16 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
         isLoggedIn: true
       };
 
+      await changeUserOnlineOffline(user.uid, true)
+
       dispatch({ type: types.LOGIN, payload });
     } catch (error) {
       changeError(error)
     }
   }
 
-  function logout() {
-    changeUserOnlineOffline(userId, false)
+  async function logout() {
+    await changeUserOnlineOffline(userId, false)
 
     signOut(auth)
   }
@@ -85,7 +87,6 @@ export function AuthContextProvider({ children }: AuthContextTypes) {
           isLoggedIn: true
         }
 
-        changeUserOnlineOffline(user.uid, true)
         dispatch({ type: types.LOGIN, payload })
 
       } else {
