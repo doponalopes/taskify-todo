@@ -72,9 +72,9 @@ export function Task({
           /></MenuButton>
           <Portal>
             <MenuList>
-              <MenuItem isDisabled={!canChange || !isLoggedIn} onClick={editTaskHandler}>Editar</MenuItem>
-              <MenuItem isDisabled={!canChange || !isLoggedIn} onClick={changeStatusHandler}>{statusButton}</MenuItem>
-              <MenuItem isDisabled={!canChange || !isLoggedIn} onClick={removeHandler}>Excluir</MenuItem>
+              <MenuItem isDisabled={!canChange || !userInformation.isLoggedIn} onClick={editTaskHandler}>Editar</MenuItem>
+              <MenuItem isDisabled={!canChange || !userInformation.isLoggedIn} onClick={changeStatusHandler}>{statusButton}</MenuItem>
+              <MenuItem isDisabled={!canChange || !userInformation.isLoggedIn} onClick={removeHandler}>Excluir</MenuItem>
             </MenuList>
           </Portal>
         </Menu>
